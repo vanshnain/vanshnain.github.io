@@ -1,11 +1,5 @@
 const correctUsername = "admin";
 const correctPassword = "admin@vntech";
-const correctUsername = "vanshnain";
-const correctPassword = "vansh@76";
-const correctUsername = "web.view";
-const correctPassword = "web@view";
-const correctUsername = "or.vntech";
-const correctPassword = "or@vntech";
 
 function login() {
   const user = document.getElementById("username").value;
