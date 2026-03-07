@@ -1,171 +1,127 @@
-/* GENERAL */
+/* Reset */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
+/* Body */
 body{
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#f4f4f4;
-color:#333;
+    background:#f5f5f5;
+    color:#333;
 }
 
-/* NAVBAR */
-
-.navbar{
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:15px 60px;
-background:white;
-box-shadow:0 2px 10px rgba(0,0,0,0.08);
-position:sticky;
-top:0;
-z-index:1000;
+/* Navbar */
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 40px;
+    background:white;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
 
-.logo{
-font-size:22px;
-font-weight:bold;
+/* Logo */
+nav h2{
+    font-size:22px;
 }
 
-/* NAV LINKS */
-
-.nav-links{
-display:flex;
-align-items:center;
-gap:30px;
-list-style:none;
-margin:0;
-padding:0;
+/* Nav links */
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:25px;
 }
 
-.nav-links li{
-position:relative;
-cursor:pointer;
-font-weight:500;
+nav ul li a{
+    text-decoration:none;
+    color:#333;
+    font-weight:500;
+    transition:0.3s;
 }
 
-/* LOGIN BUTTONS */
+nav ul li a:hover{
+    color:#e5322d;
+}
 
-.nav-buttons{
-display:flex;
-gap:10px;
+/* Login buttons */
+.auth{
+    display:flex;
+    gap:10px;
 }
 
 .login{
-background:none;
-border:none;
-font-size:14px;
-cursor:pointer;
+    text-decoration:none;
+    color:#333;
+    font-weight:500;
 }
 
 .signup{
-background:#e5322d;
-color:white;
-border:none;
-padding:8px 16px;
-border-radius:6px;
-cursor:pointer;
+    text-decoration:none;
+    background:#e5322d;
+    color:white;
+    padding:8px 16px;
+    border-radius:5px;
+    font-weight:500;
 }
 
-/* HERO SECTION */
-
-.hero{
-text-align:center;
-margin-top:80px;
-padding:40px 20px;
+/* Left tools menu */
+.tools{
+    position:absolute;
+    left:30px;
+    top:120px;
+    width:250px;
 }
 
-.hero h1{
-font-size:56px;
-margin-bottom:15px;
+.tools h3{
+    margin:20px 0 10px 0;
 }
 
-.hero p{
-font-size:18px;
-color:#666;
-margin-bottom:35px;
+.tools a{
+    display:block;
+    margin:5px 0;
+    text-decoration:none;
+    color:#6b6bff;
+    font-size:14px;
 }
 
-/* UPLOAD BUTTON */
+/* Main section */
+.main{
+    text-align:center;
+    margin-top:150px;
+}
 
+/* Title */
+.main h1{
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+/* Description */
+.main p{
+    color:#777;
+    margin-bottom:30px;
+}
+
+/* Upload button */
 .upload-btn{
-background:#e5322d;
-color:white;
-border:none;
-padding:18px 45px;
-font-size:20px;
-border-radius:12px;
-cursor:pointer;
-transition:0.3s;
-box-shadow:0 6px 15px rgba(0,0,0,0.2);
+    background:#e5322d;
+    color:white;
+    padding:16px 30px;
+    border:none;
+    border-radius:8px;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.3s;
 }
 
 .upload-btn:hover{
-background:#cc2b26;
-transform:translateY(-2px);
+    background:#c92b26;
 }
 
-/* DROP ZONE */
-
-.drop-zone{
-margin-top:25px;
-border:2px dashed #ccc;
-padding:30px;
-width:320px;
-margin-left:auto;
-margin-right:auto;
-border-radius:10px;
-color:#777;
-font-size:14px;
-}
-
-/* DROPDOWN MENU */
-
-.tools-menu{
-position:relative;
-}
-
-/* DROPDOWN CONTAINER */
-
-.tools-dropdown{
-position:absolute;
-top:40px;
-left:-250px;
-background:white;
-color:black;
-display:none;
-padding:30px;
-border-radius:10px;
-box-shadow:0 10px 30px rgba(0,0,0,0.15);
-
-width:750px;
-
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:30px;
-}
-
-/* SHOW ON HOVER */
-
-.tools-menu:hover .tools-dropdown{
-display:grid;
-}
-
-/* DROPDOWN COLUMN */
-
-.tool-column h4{
-font-size:13px;
-color:#777;
-margin-bottom:10px;
-}
-
-.tool-column a{
-display:block;
-text-decoration:none;
-color:black;
-font-size:14px;
-margin-bottom:8px;
-}
-
-.tool-column a:hover{
-color:#e5322d;
+/* Drag text */
+.drag-text{
+    margin-top:10px;
+    color:#777;
 }
