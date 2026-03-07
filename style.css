@@ -1,12 +1,24 @@
+/* GENERAL */
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#f4f4f4;
+color:#333;
+}
+
 /* NAVBAR */
 
 .navbar{
 display:flex;
-justify-content:space-between;
 align-items:center;
-padding:15px 40px;
+justify-content:space-between;
+padding:15px 60px;
 background:white;
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+position:sticky;
+top:0;
+z-index:1000;
 }
 
 .logo{
@@ -14,66 +26,146 @@ font-size:22px;
 font-weight:bold;
 }
 
-.navbar ul{
+/* NAV LINKS */
+
+.nav-links{
 display:flex;
+align-items:center;
 gap:30px;
 list-style:none;
+margin:0;
+padding:0;
 }
 
-.navbar li{
+.nav-links li{
+position:relative;
 cursor:pointer;
 font-weight:500;
 }
 
-.nav-buttons button{
-padding:8px 15px;
-border:none;
-border-radius:5px;
-cursor:pointer;
+/* LOGIN BUTTONS */
+
+.nav-buttons{
+display:flex;
+gap:10px;
 }
 
 .login{
 background:none;
+border:none;
+font-size:14px;
+cursor:pointer;
 }
 
 .signup{
 background:#e5322d;
 color:white;
+border:none;
+padding:8px 16px;
+border-radius:6px;
+cursor:pointer;
 }
 
-/* HERO */
+/* HERO SECTION */
 
 .hero{
 text-align:center;
-margin-top:100px;
+margin-top:80px;
+padding:40px 20px;
 }
 
 .hero h1{
-font-size:48px;
-margin-bottom:10px;
+font-size:56px;
+margin-bottom:15px;
 }
 
 .hero p{
+font-size:18px;
 color:#666;
-margin-bottom:30px;
+margin-bottom:35px;
 }
+
+/* UPLOAD BUTTON */
 
 .upload-btn{
 background:#e5322d;
 color:white;
 border:none;
-padding:18px 40px;
-font-size:18px;
-border-radius:10px;
+padding:18px 45px;
+font-size:20px;
+border-radius:12px;
 cursor:pointer;
-box-shadow:0 5px 15px rgba(0,0,0,0.15);
+transition:0.3s;
+box-shadow:0 6px 15px rgba(0,0,0,0.2);
 }
 
 .upload-btn:hover{
 background:#cc2b26;
+transform:translateY(-2px);
 }
 
-.drop-text{
-margin-top:15px;
+/* DROP ZONE */
+
+.drop-zone{
+margin-top:25px;
+border:2px dashed #ccc;
+padding:30px;
+width:320px;
+margin-left:auto;
+margin-right:auto;
+border-radius:10px;
 color:#777;
+font-size:14px;
+}
+
+/* DROPDOWN MENU */
+
+.tools-menu{
+position:relative;
+}
+
+/* DROPDOWN CONTAINER */
+
+.tools-dropdown{
+position:absolute;
+top:40px;
+left:-250px;
+background:white;
+color:black;
+display:none;
+padding:30px;
+border-radius:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+
+width:750px;
+
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:30px;
+}
+
+/* SHOW ON HOVER */
+
+.tools-menu:hover .tools-dropdown{
+display:grid;
+}
+
+/* DROPDOWN COLUMN */
+
+.tool-column h4{
+font-size:13px;
+color:#777;
+margin-bottom:10px;
+}
+
+.tool-column a{
+display:block;
+text-decoration:none;
+color:black;
+font-size:14px;
+margin-bottom:8px;
+}
+
+.tool-column a:hover{
+color:#e5322d;
 }
