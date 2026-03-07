@@ -2,81 +2,49 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>JPG to PDF - Vansh Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Tools - Vansh Nain</title>
+
 <link rel="stylesheet" href="style.css">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 </head>
-
 <body>
 
 <!-- NAVBAR -->
 
-<li class="tools-menu">
-All PDF Tools
+<nav>
 
-<div class="tools-dropdown">
-
-<div class="tool-column">
-<h4>Organize PDF</h4>
-<a href="#">Merge PDF</a>
-<a href="#">Split PDF</a>
-<a href="#">Remove Pages</a>
-<a href="#">Extract Pages</a>
+<div class="logo">
+<h2>PDF Tools</h2>
 </div>
 
-<div class="tool-column">
-<h4>Optimize PDF</h4>
-<a href="#">Compress PDF</a>
-<a href="#">Repair PDF</a>
-<a href="#">OCR PDF</a>
+<ul class="nav-links">
+<li><a href="#">Merge PDF</a></li>
+<li><a href="#">Split PDF</a></li>
+<li><a href="#">Compress PDF</a></li>
+<li><a href="#">Convert PDF</a></li>
+</ul>
+
+<div class="auth">
+<a href="#" class="login">Login</a>
+<a href="#" class="signup">Sign up</a>
 </div>
 
-<div class="tool-column">
-<h4>Convert to PDF</h4>
-<a href="#">JPG to PDF</a>
-<a href="#">Word to PDF</a>
-<a href="#">Excel to PDF</a>
-</div>
-
-<div class="tool-column">
-<h4>Convert from PDF</h4>
-<a href="#">PDF to JPG</a>
-<a href="#">PDF to Word</a>
-<a href="#">PDF to Excel</a>
-</div>
-
-</div>
-</li>
-
-<div class="nav-buttons">
-<button class="login">Login</button>
-<button class="signup">Sign up</button>
-</div>
 </nav>
 
 <!-- MAIN SECTION -->
 
-<section class="hero">
+<section class="main">
 
 <h1>JPG to PDF</h1>
 
-<p>
-Convert JPG images to PDF in seconds. Easily adjust orientation and margins.
-</p>
+<p>Convert JPG images to PDF in seconds. Easily adjust orientation and margins.</p>
 
-<input type="file" id="imageInput" multiple accept="image/*" hidden onchange="convertToPDF()">
+<button class="upload-btn">Select JPG Images</button>
 
-<button class="upload-btn" onclick="document.getElementById('imageInput').click()">
-Select JPG Images
-</button>
-
-<p class="drop-text">or drop JPG images here</p>
+<p class="drag-text">or drop JPG images here</p>
 
 </section>
-
-<script src="../script.js"></script>
 
 </body>
 </html>
