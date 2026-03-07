@@ -40,7 +40,7 @@
 Convert JPG images to PDF in seconds. Easily adjust orientation and margins.
 </p>
 
-<input type="file" id="imageInput" multiple accept="image/*" hidden>
+<input type="file" id="imageInput" multiple accept="image/*" hidden onchange="convertToPDF()">
 
 <button class="upload-btn" onclick="document.getElementById('imageInput').click()">
 Select JPG Images
