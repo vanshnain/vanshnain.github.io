@@ -2,36 +2,55 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Free PDF Tools - Vansh Tools</title>
-<link rel="stylesheet" href="style.css">
+<title>JPG to PDF - Vansh Tools</title>
+<link rel="stylesheet" href="../style.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 
 <body>
 
-<header>
-<h1>Free PDF Tools</h1>
-<p>All PDF tools you need in one place.</p>
-</header>
+<!-- NAVBAR -->
 
-<div class="tools">
+<nav class="navbar">
+<div class="logo">VanshPDF</div>
 
-<a href="tools/image-to-pdf.html" class="tool">
-Image to PDF
-</a>
+<ul>
+<li>Merge PDF</li>
+<li>Split PDF</li>
+<li>Compress PDF</li>
+<li>Convert PDF</li>
+<li>All PDF Tools</li>
+</ul>
 
-<a href="tools/merge-pdf.html" class="tool">
-Merge PDF
-</a>
-
-<a href="tools/split-pdf.html" class="tool">
-Split PDF
-</a>
-
-<a href="tools/compress-pdf.html" class="tool">
-Compress PDF
-</a>
-
+<div class="nav-buttons">
+<button class="login">Login</button>
+<button class="signup">Sign up</button>
 </div>
+</nav>
+
+<!-- MAIN SECTION -->
+
+<section class="hero">
+
+<h1>JPG to PDF</h1>
+
+<p>
+Convert JPG images to PDF in seconds. Easily adjust orientation and margins.
+</p>
+
+<input type="file" id="imageInput" multiple accept="image/*" hidden>
+
+<button class="upload-btn" onclick="document.getElementById('imageInput').click()">
+Select JPG Images
+</button>
+
+<p class="drop-text">or drop JPG images here</p>
+
+</section>
+
+<script src="../script.js"></script>
 
 </body>
 </html>
