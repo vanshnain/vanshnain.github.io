@@ -57,6 +57,63 @@
 <p class="drag-text">or drop JPG images here</p>
 
 </section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+
+async function convertToPDF() {
+
+const { jsPDF } = window.jspdf;
+
+const input = document.getElementById("imageInput");
+
+if(input.files.length === 0){
+alert("Please upload an image");
+return;
+}
+
+const pdf = new jsPDF();
+
+for(let i=0;i<input.files.length;i++){
+
+const file = input.files[i];
+
+const reader = new FileReader();
+
+await new Promise(resolve => {
+
+reader.onload = function(e){
+
+const img = new Image();
+
+img.src = e.target.result;
+
+img.onload = function(){
+
+const width = pdf.internal.pageSize.getWidth();
+const height = (img.height * width) / img.width;
+
+if(i>0) pdf.addPage();
+
+pdf.addImage(img, 'JPEG', 0, 0, width, height);
+
+resolve();
+
+}
+
+}
+
+reader.readAsDataURL(file);
+
+});
+
+}
+
+pdf.save("converted.pdf");
+
+}
+
+</script>
 
 </body>
 </html>
