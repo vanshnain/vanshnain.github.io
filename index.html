@@ -123,26 +123,6 @@
       font-weight: 600;
     }
 
-    .demo-box {
-      margin-top: 22px;
-      padding: 16px;
-      border-radius: 12px;
-      background: #f8fbff;
-      border: 1px solid #dce8ff;
-    }
-
-    .demo-box h3 {
-      font-size: 16px;
-      margin-bottom: 10px;
-      color: #133b7a;
-    }
-
-    .demo-box p {
-      font-size: 13px;
-      margin-bottom: 6px;
-      color: #374151;
-    }
-
     .dashboard {
       min-height: 100vh;
     }
@@ -299,7 +279,6 @@
 </head>
 <body>
 
-  <!-- LOGIN PAGE -->
   <div id="loginPage" class="login-page">
     <div class="login-card">
       <div class="logo-box">
@@ -322,8 +301,9 @@
         <button type="submit" class="btn">Sign In</button>
         <div id="errorMessage" class="error-message"></div>
       </form>
+    </div>
+  </div>
 
-  <!-- DASHBOARD -->
   <div id="dashboardPage" class="dashboard hidden">
     <div class="topbar">
       <div>
@@ -377,7 +357,7 @@
       </div>
 
       <div class="footer-note">
-        Demo ERP Portal for Student Login
+        ERP Portal
       </div>
     </div>
   </div>
@@ -392,10 +372,10 @@
         subjects: ["HTML", "C++", "DBMS", "CN"],
         attendance: "76.79%",
         assignments: [
-          "HTML Website Design - Submit by 31 March 2026",
-          "C++ File Handling Program - Submit by 28 March 2026",
-          "DBMS ER Diagram Project - Submit by 02 April 2026",
-          "Computer Networks Assignment on OSI Model - Submit by 05 April 2026"
+          "HTML Website Design",
+          "C++ File Handling Program",
+          "DBMS ER Diagram Project",
+          "Computer Networks Assignment"
         ]
       },
       {
@@ -406,10 +386,10 @@
         subjects: ["HTML", "C++", "DBMS", "CN"],
         attendance: "86.1%",
         assignments: [
-          "HTML Website Design - Submit by 31 March 2026",
-          "C++ OOP Concepts Assignment - Submit by 29 March 2026",
-          "DBMS Normalization Assignment - Submit by 03 April 2026",
-          "Computer Networks Topology Report - Submit by 06 April 2026"
+          "HTML Website Design",
+          "C++ OOP Concepts Assignment",
+          "DBMS Normalization Assignment",
+          "Computer Networks Topology Report"
         ]
       },
       {
@@ -420,10 +400,10 @@
         subjects: ["HTML", "C++", "DBMS", "CN"],
         attendance: "56.79%",
         assignments: [
-          "HTML Homepage Layout - Submit by 31 March 2026",
-          "C++ Loops and Arrays Program - Submit by 30 March 2026",
-          "DBMS SQL Queries Assignment - Submit by 04 April 2026",
-          "Computer Networks Basics Worksheet - Submit by 07 April 2026"
+          "HTML Homepage Layout",
+          "C++ Loops and Arrays Program",
+          "DBMS SQL Queries Assignment",
+          "Computer Networks Basics Worksheet"
         ]
       }
     ];
@@ -462,8 +442,8 @@
       document.getElementById("studentAttendance").textContent = student.attendance;
 
       const attendanceNumber = parseFloat(student.attendance);
-
       const attendanceStatus = document.getElementById("attendanceStatus");
+
       if (attendanceNumber >= 75) {
         attendanceStatus.innerHTML = `<span class="status-good">Good Standing</span>`;
       } else if (attendanceNumber >= 60) {
