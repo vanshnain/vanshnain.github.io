@@ -1,119 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PDF Tools - Vansh Nain</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College ERP Login</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-<link rel="stylesheet" href="style.css">
+    body {
+      background: linear-gradient(135deg, #dfe9f3, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
 
+    .container {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .login-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      padding: 30px 25px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    .college-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .input-group input:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+
+    .forgot-password a {
+      text-decoration: none;
+      font-size: 13px;
+      color: #007bff;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+    .btn {
+      width: 100%;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background: #0056b3;
+    }
+
+    .faq-box {
+      margin-top: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 18px;
+      text-align: left;
+      border: 1px solid #e0e0e0;
+    }
+
+    .faq-box h3 {
+      font-size: 18px;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .faq-box ul {
+      padding-left: 18px;
+    }
+
+    .faq-box li {
+      font-size: 13px;
+      color: #444;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .footer {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 12px;
+      color: #777;
+    }
+
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 25px 18px;
+      }
+
+      .college-name {
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-  
-<div class="tool-container">
 
-<h2>Image to PDF Converter</h2>
+  <div class="container">
+    <div class="login-card">
+      <img src="logo.png" alt="College Logo" class="logo">
 
-<input type="file" id="imageInput" accept="image/*" multiple>
+      <div class="college-name">RAMANUJAN COLLEGE</div>
+      <div class="subtitle">Please log in to your account</div>
 
-<br><br>
+      <form>
+        <div class="input-group">
+          <label for="userid">User Id</label>
+          <input type="text" id="userid" placeholder="Enter your user id" required>
+        </div>
 
-<button onclick="convertToPDF()">Convert to PDF</button>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required>
+        </div>
 
-</div>
+        <div class="forgot-password">
+          <a href="#">Forgot Password?</a>
+        </div>
 
-<!-- NAVBAR -->
+        <button type="submit" class="btn">Sign in</button>
+      </form>
 
-<nav>
+      <div class="faq-box">
+        <h3>FAQS</h3>
+        <ul>
+          <li>Default password is <strong>Pass@123</strong></li>
+          <li>If you are not able to reset your password, send your query to reset your password to <strong>Dic1@lb.du.ac.in</strong>.</li>
+          <li>If you entered the login details correctly and still cannot log in, send a screenshot along with your CSAS Form No., name, and course.</li>
+          <li>If the issue is not resolved in 2 days, send your query to <strong>Dic2@lb.du.ac.in</strong>.</li>
+        </ul>
+      </div>
 
-<div class="logo">
-<h2>PDF Tools</h2>
-</div>
-
-<ul class="nav-links">
-<li><a href="#">Merge PDF</a></li>
-<li><a href="#">Split PDF</a></li>
-<li><a href="#">Compress PDF</a></li>
-<li><a href="#">Convert PDF</a></li>
-</ul>
-
-<div class="auth">
-<a href="#" class="login">Login</a>
-<a href="#" class="signup">Sign up</a>
-</div>
-
-</nav>
-
-<!-- MAIN SECTION -->
-
-<section class="main">
-
-<h1>JPG to PDF</h1>
-
-<p>Convert JPG images to PDF in seconds. Easily adjust orientation and margins.</p>
-
-<button class="upload-btn">Select JPG Images</button>
-
-<p class="drag-text">or drop JPG images here</p>
-
-</section>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<script>
-
-async function convertToPDF() {
-
-const { jsPDF } = window.jspdf;
-
-const input = document.getElementById("imageInput");
-
-if(input.files.length === 0){
-alert("Please upload an image");
-return;
-}
-
-const pdf = new jsPDF();
-
-for(let i=0;i<input.files.length;i++){
-
-const file = input.files[i];
-
-const reader = new FileReader();
-
-await new Promise(resolve => {
-
-reader.onload = function(e){
-
-const img = new Image();
-
-img.src = e.target.result;
-
-img.onload = function(){
-
-const width = pdf.internal.pageSize.getWidth();
-const height = (img.height * width) / img.width;
-
-if(i>0) pdf.addPage();
-
-pdf.addImage(img, 'JPEG', 0, 0, width, height);
-
-resolve();
-
-}
-
-}
-
-reader.readAsDataURL(file);
-
-});
-
-}
-
-pdf.save("converted.pdf");
-
-}
-
-</script>
+      <div class="footer">
+        © 2026 College ERP Portal
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
