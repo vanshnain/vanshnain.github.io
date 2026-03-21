@@ -2,6 +2,7 @@ const students = [
   {
     name: "Vansh Nain",
     dob: "07/06/2006",
+    Email: "vansh.nain@ramanujan.du.ac.in",
     username: "vansh.nain",
     password: "vansh@0087",
     attendance: 76.79,
@@ -37,14 +38,15 @@ const students = [
   {
     name: "Shivansh Pandey",
     dob: "14/02/2006",
+    Email: "shivansh.pandey@ramanujan.du.ac.in",
     username: "shivansh.pandey",
     password: "shivansh@0060",
     attendance: 86.1,
     subjects: [
-      { name: "HTML", code: "BCA101", faculty: "Ms. Sharma" },
-      { name: "C++", code: "BCA102", faculty: "Mr. Mehta" },
-      { name: "DBMS", code: "BCA103", faculty: "Dr. Verma" },
-      { name: "CN", code: "BCA104", faculty: "Ms. Kaur" }
+      { name: "HTML", code: "BCA101", faculty: "DR. Kamlesh" },
+      { name: "C++", code: "BCA102", faculty: "Mr. Rathi" },
+      { name: "DBMS", code: "BCA103", faculty: "Ms. Sheetal" },
+      { name: "CN", code: "BCA104", faculty: "Ms. Sheetal" }
     ],
     assignments: [
       { title: "HTML Forms Assignment", subject: "HTML", status: "Submitted" },
@@ -72,6 +74,7 @@ const students = [
   {
     name: "Mayank Kataria",
     dob: "18/08/2006",
+    Email: "mayank.kataria@ramanujan.du.ac.in",
     username: "mayank.kataria",
     password: "mayank@0037",
     attendance: 56.79,
