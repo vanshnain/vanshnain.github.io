@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="erp-layout">
+    <aside class="sidebar">
+      <div>
+        <h2>ERP Panel</h2>
+        <ul class="sidebar-menu">
+          <li><a href="dashboard.html" class="active">Dashboard</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="subjects.html">Subjects</a></li>
+          <li><a href="attendance.html">Attendance</a></li>
+          <li><a href="assignments.html">Assignments</a></li>
+          <li><a href="results.html">Results</a></li>
+          <li><a href="fees.html">Fees</a></li>
+          <li><a href="notice.html">Notice Board</a></li>
+        </ul>
+      </div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </aside>
+
+    <main class="main-content">
+      <div class="topbar">
+        <div>
+          <h1>Student Dashboard</h1>
+          <p id="topWelcome">Welcome back</p>
+        </div>
+        <div class="top-badge" id="topBadge">student</div>
+      </div>
+
+      <div class="content-area">
+        <div class="cards-grid">
+          <div class="card profile-card">
+            <div class="profile-avatar" id="profileAvatar">S</div>
+            <h2 id="studentName">Student Name</h2>
+            <p id="studentUsername">@username</p>
+            <span class="tag">BCA / Computer Applications</span>
+          </div>
+
+          <div class="card">
+            <h3>Student Information</h3>
+            <div class="detail-row"><div class="detail-label">Full Name</div><div class="detail-value" id="detailName"></div></div>
+            <div class="detail-row"><div class="detail-label">Date of Birth</div><div class="detail-value" id="detailDob"></div></div>
+            <div class="detail-row"><div class="detail-label">Username</div><div class="detail-value" id="detailUsername"></div></div>
+            <div class="detail-row"><div class="detail-label">Course</div><div class="detail-value">BCA</div></div>
+            <div class="detail-row"><div class="detail-label">Semester</div><div class="detail-value">Semester 2</div></div>
+          </div>
+        </div>
+
+        <div class="two-col-grid">
+          <div class="card">
+            <h3>Overall Attendance</h3>
+            <div class="attendance-line"><span>Attendance Percentage</span><span id="attendancePercent">0%</span></div>
+            <div class="progress-bar"><div class="progress-fill" id="attendanceBar"></div></div>
+            <div class="attendance-line"><span>Status</span><span id="attendanceStatus">-</span></div>
+          </div>
+
+          <div class="card">
+            <h3>Notice Board</h3>
+            <ul class="notice-list" id="noticeListDashboard"></ul>
+          </div>
+        </div>
+
+        <div class="footer-note">ERP Student Portal</div>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
