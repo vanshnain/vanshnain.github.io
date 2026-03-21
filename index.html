@@ -13,20 +13,21 @@
     }
 
     body {
-      background: linear-gradient(135deg, #d9e7ff, #f7fbff);
-      min-height: 100vh;
-      color: #1f2d3d;
+      background: #f1f5f9;
+      color: #1e293b;
     }
 
     .hidden {
       display: none !important;
     }
 
+    /* LOGIN */
     .login-page {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: linear-gradient(135deg, #0f172a, #1d4ed8);
       padding: 20px;
     }
 
@@ -34,43 +35,44 @@
       width: 100%;
       max-width: 430px;
       background: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      border-radius: 20px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
       padding: 32px 28px;
     }
 
-    .logo-box {
+    .logo-wrap {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .logo-circle {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 12px;
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 14px;
       border-radius: 50%;
-      background: #0d6efd;
-      color: #fff;
+      background: #1d4ed8;
+      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
+      font-size: 30px;
       font-weight: bold;
+      letter-spacing: 1px;
     }
 
-    .college-title {
-      font-size: 24px;
+    .login-title {
+      font-size: 26px;
       font-weight: bold;
-      color: #133b7a;
+      color: #0f172a;
+      text-align: center;
       margin-bottom: 6px;
-      text-align: center;
     }
 
-    .sub-text {
+    .login-subtitle {
       text-align: center;
-      color: #6b7280;
-      margin-bottom: 24px;
       font-size: 14px;
+      color: #64748b;
+      margin-bottom: 22px;
     }
 
     .form-group {
@@ -82,197 +84,385 @@
       margin-bottom: 7px;
       font-size: 14px;
       font-weight: 600;
+      color: #334155;
     }
 
     .form-group input {
       width: 100%;
       padding: 12px 14px;
-      border: 1px solid #cfd8e3;
+      border: 1px solid #cbd5e1;
       border-radius: 10px;
       font-size: 14px;
       outline: none;
-    }
-
-    .form-group input:focus {
-      border-color: #0d6efd;
-      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
-    }
-
-    .btn {
-      width: 100%;
-      border: none;
-      background: #0d6efd;
-      color: #fff;
-      padding: 13px;
-      font-size: 15px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
       transition: 0.2s;
     }
 
-    .btn:hover {
-      background: #0b5ed7;
+    .form-group input:focus {
+      border-color: #1d4ed8;
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
+    }
+
+    .login-btn {
+      width: 100%;
+      border: none;
+      background: #1d4ed8;
+      color: white;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .login-btn:hover {
+      background: #1e40af;
     }
 
     .error-message {
       margin-top: 14px;
-      text-align: center;
+      color: #dc2626;
       font-size: 14px;
-      color: #d93025;
+      text-align: center;
       font-weight: 600;
     }
 
-    .dashboard {
+    /* DASHBOARD */
+    .erp-layout {
+      display: flex;
       min-height: 100vh;
     }
 
-    .topbar {
-      background: #0d6efd;
+    .sidebar {
+      width: 250px;
+      background: #0f172a;
       color: white;
-      padding: 18px 30px;
+      padding: 24px 18px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
     }
 
-    .topbar h1 {
+    .sidebar h2 {
       font-size: 24px;
+      color: #60a5fa;
+      margin-bottom: 24px;
     }
 
-    .topbar .welcome {
-      font-size: 15px;
-      font-weight: 500;
+    .sidebar-menu {
+      list-style: none;
+    }
+
+    .sidebar-menu li {
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+      font-size: 14px;
+    }
+
+    .sidebar-menu li.active {
+      background: #1d4ed8;
+      font-weight: bold;
     }
 
     .logout-btn {
       border: none;
-      background: #ffffff;
-      color: #0d6efd;
-      padding: 10px 16px;
+      background: #ef4444;
+      color: white;
+      padding: 12px;
       border-radius: 10px;
-      cursor: pointer;
       font-weight: bold;
+      cursor: pointer;
     }
 
-    .dashboard-container {
-      max-width: 1200px;
-      margin: 28px auto;
-      padding: 0 20px 30px;
+    .logout-btn:hover {
+      background: #dc2626;
     }
 
-    .grid {
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      background: white;
+      padding: 20px 24px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .topbar h1 {
+      font-size: 26px;
+      color: #0f172a;
+    }
+
+    .topbar p {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+
+    .top-badge {
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .content-area {
+      padding: 24px;
+    }
+
+    .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
+      grid-template-columns: 320px 1fr;
+      gap: 22px;
+      margin-bottom: 22px;
+    }
+
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
       margin-bottom: 22px;
     }
 
     .card {
       background: white;
       border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
       padding: 22px;
     }
 
-    .card h2 {
+    .card h3 {
       font-size: 19px;
-      color: #133b7a;
       margin-bottom: 16px;
-      border-bottom: 1px solid #e9eef5;
-      padding-bottom: 10px;
+      color: #0f172a;
     }
 
-    .info-row {
+    .profile-card {
+      text-align: center;
+    }
+
+    .profile-avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: #1d4ed8;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .profile-card h2 {
+      font-size: 22px;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .profile-card p {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .detail-row {
       display: flex;
       justify-content: space-between;
       gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f1f3f7;
+      padding: 11px 0;
+      border-bottom: 1px solid #e2e8f0;
       font-size: 14px;
     }
 
-    .info-row:last-child {
+    .detail-row:last-child {
       border-bottom: none;
     }
 
-    .info-label {
-      font-weight: 700;
-      color: #4b5563;
+    .detail-label {
+      font-weight: bold;
+      color: #475569;
     }
 
-    .info-value {
+    .detail-value {
       text-align: right;
-      color: #111827;
+      color: #0f172a;
     }
 
-    .subject-list,
-    .assignment-list {
+    .progress-bar {
+      width: 100%;
+      height: 18px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #1d4ed8, #60a5fa);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+
+    .attendance-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .attendance-status {
+      font-weight: bold;
+    }
+
+    .good {
+      color: #16a34a;
+    }
+
+    .average {
+      color: #ea580c;
+    }
+
+    .low {
+      color: #dc2626;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    table th,
+    table td {
+      text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    table th {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .assignment-status,
+    .fee-status {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .pending {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .submitted,
+    .paid {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .unpaid {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .notice-list {
       list-style: none;
     }
 
-    .subject-list li,
-    .assignment-list li {
-      padding: 11px 12px;
+    .notice-list li {
+      padding: 12px;
       margin-bottom: 10px;
-      background: #f8fbff;
-      border: 1px solid #dde8fb;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
       border-radius: 10px;
       font-size: 14px;
+      line-height: 1.5;
     }
 
-    .attendance-box {
-      text-align: center;
-      padding: 10px 0 0;
+    .download-link {
+      color: #1d4ed8;
+      font-weight: 600;
+      text-decoration: none;
     }
 
-    .attendance-value {
-      font-size: 38px;
-      font-weight: bold;
-      color: #0d6efd;
-      margin-bottom: 10px;
-    }
-
-    .attendance-note {
-      font-size: 14px;
-      color: #6b7280;
-    }
-
-    .status-good {
-      color: #198754;
-      font-weight: bold;
-    }
-
-    .status-average {
-      color: #fd7e14;
-      font-weight: bold;
-    }
-
-    .status-low {
-      color: #dc3545;
-      font-weight: bold;
+    .download-link:hover {
+      text-decoration: underline;
     }
 
     .footer-note {
       text-align: center;
-      color: #6b7280;
+      color: #64748b;
       font-size: 13px;
-      margin-top: 6px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 1100px) {
+      .cards-grid,
+      .two-col-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .erp-layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
     }
 
     @media (max-width: 600px) {
+      .content-area {
+        padding: 16px;
+      }
+
       .topbar {
-        padding: 16px 18px;
+        padding: 16px;
       }
 
       .topbar h1 {
-        font-size: 20px;
+        font-size: 22px;
       }
 
-      .login-card {
-        padding: 26px 18px;
+      table {
+        font-size: 13px;
+      }
+
+      table th,
+      table td {
+        padding: 10px 8px;
       }
     }
   </style>
@@ -281,84 +471,177 @@
 
   <div id="loginPage" class="login-page">
     <div class="login-card">
-      <div class="logo-box">
+      <div class="logo-wrap">
         <div class="logo-circle">ERP</div>
-        <div class="college-title">College ERP Portal</div>
-        <div class="sub-text">Please sign in to continue</div>
+        <div class="login-title">College ERP Portal</div>
+        <div class="login-subtitle">Sign in to access your dashboard</div>
       </div>
 
       <form id="loginForm">
         <div class="form-group">
           <label for="username">User ID</label>
-          <input type="text" id="username" placeholder="Enter your username" required />
+          <input type="text" id="username" placeholder="Enter username" required>
         </div>
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Enter your password" required />
+          <input type="password" id="password" placeholder="Enter password" required>
         </div>
 
-        <button type="submit" class="btn">Sign In</button>
+        <button type="submit" class="login-btn">Sign In</button>
         <div id="errorMessage" class="error-message"></div>
       </form>
     </div>
   </div>
 
-  <div id="dashboardPage" class="dashboard hidden">
-    <div class="topbar">
-      <div>
-        <h1>ERP Student Dashboard</h1>
-        <div class="welcome" id="welcomeText">Welcome</div>
-      </div>
-      <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
+  <div id="dashboardPage" class="hidden">
+    <div class="erp-layout">
+      <aside class="sidebar">
+        <div>
+          <h2>ERP Panel</h2>
+          <ul class="sidebar-menu">
+            <li class="active">Dashboard</li>
+            <li>Profile</li>
+            <li>Subjects</li>
+            <li>Attendance</li>
+            <li>Assignments</li>
+            <li>Results</li>
+            <li>Fees</li>
+            <li>Notice Board</li>
+          </ul>
+        </div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </aside>
 
-    <div class="dashboard-container">
-      <div class="grid">
-        <div class="card">
-          <h2>Student Details</h2>
-          <div class="info-row">
-            <div class="info-label">Name</div>
-            <div class="info-value" id="studentName"></div>
+      <main class="main-content">
+        <div class="topbar">
+          <div>
+            <h1>Student Dashboard</h1>
+            <p id="topWelcome">Welcome back</p>
           </div>
-          <div class="info-row">
-            <div class="info-label">Date of Birth</div>
-            <div class="info-value" id="studentDob"></div>
-          </div>
-          <div class="info-row">
-            <div class="info-label">Username</div>
-            <div class="info-value" id="studentUsername"></div>
-          </div>
-          <div class="info-row">
-            <div class="info-label">Department</div>
-            <div class="info-value">Bsc. (hons) Computer Science</div>
-          </div>
+          <div class="top-badge" id="topBadge">student</div>
         </div>
 
-        <div class="card">
-          <h2>Overall Attendance</h2>
-          <div class="attendance-box">
-            <div class="attendance-value" id="studentAttendance"></div>
-            <div class="attendance-note" id="attendanceStatus"></div>
+        <div class="content-area">
+          <div class="cards-grid">
+            <div class="card profile-card">
+              <div class="profile-avatar" id="profileAvatar">S</div>
+              <h2 id="studentName">Student Name</h2>
+              <p id="studentUsername">@username</p>
+              <span class="tag">BCA / Computer Applications</span>
+            </div>
+
+            <div class="card">
+              <h3>Student Information</h3>
+              <div class="detail-row">
+                <div class="detail-label">Full Name</div>
+                <div class="detail-value" id="detailName"></div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Date of Birth</div>
+                <div class="detail-value" id="detailDob"></div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Username</div>
+                <div class="detail-value" id="detailUsername"></div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Course</div>
+                <div class="detail-value">BCA</div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Semester</div>
+                <div class="detail-value">Semester 2</div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="grid">
-        <div class="card">
-          <h2>Subjects Allotted</h2>
-          <ul class="subject-list" id="subjectList"></ul>
-        </div>
+          <div class="two-col-grid">
+            <div class="card">
+              <h3>Overall Attendance</h3>
+              <div class="attendance-line">
+                <span>Attendance Percentage</span>
+                <span id="attendancePercent">0%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="attendanceBar"></div>
+              </div>
+              <div class="attendance-line">
+                <span>Status</span>
+                <span class="attendance-status" id="attendanceStatus">-</span>
+              </div>
+            </div>
 
-        <div class="card">
-          <h2>Assignments</h2>
-          <ul class="assignment-list" id="assignmentList"></ul>
-        </div>
-      </div>
+            <div class="card">
+              <h3>Notice Board</h3>
+              <ul class="notice-list" id="noticeList"></ul>
+            </div>
+          </div>
 
-      <div class="footer-note">
-        ERP Portal
-      </div>
+          <div class="card" style="margin-bottom:22px;">
+            <h3>Subjects Allotted</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>S. No.</th>
+                  <th>Subject Name</th>
+                  <th>Subject Code</th>
+                  <th>Faculty</th>
+                </tr>
+              </thead>
+              <tbody id="subjectsTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="card" style="margin-bottom:22px;">
+            <h3>Assignments</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>S. No.</th>
+                  <th>Assignment Title</th>
+                  <th>Subject</th>
+                  <th>Status</th>
+                  <th>Download</th>
+                </tr>
+              </thead>
+              <tbody id="assignmentsTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="two-col-grid">
+            <div class="card">
+              <h3>Results / Marks</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                  </tr>
+                </thead>
+                <tbody id="resultsTableBody"></tbody>
+              </table>
+            </div>
+
+            <div class="card">
+              <h3>Fees Section</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Fee Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="feesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="footer-note">ERP Student Portal</div>
+        </div>
+      </main>
     </div>
   </div>
 
@@ -369,13 +652,34 @@
         dob: "07/06/2006",
         username: "vansh.nain",
         password: "vansh@0087",
-        subjects: ["HTML", "C++", "DBMS", "CN"],
-        attendance: "76.79%",
+        attendance: 76.79,
+        subjects: [
+          { name: "HTML", code: "BCA101", faculty: "Ms. Sharma" },
+          { name: "C++", code: "BCA102", faculty: "Mr. Mehta" },
+          { name: "DBMS", code: "BCA103", faculty: "Dr. Verma" },
+          { name: "CN", code: "BCA104", faculty: "Ms. Kaur" }
+        ],
         assignments: [
-          "HTML Website Design",
-          "C++ File Handling Program",
-          "DBMS ER Diagram Project",
-          "Computer Networks Assignment"
+          { title: "HTML Website Layout", subject: "HTML", status: "Pending" },
+          { title: "C++ OOP Program", subject: "C++", status: "Submitted" },
+          { title: "DBMS Table Design", subject: "DBMS", status: "Pending" },
+          { title: "OSI Model Report", subject: "CN", status: "Submitted" }
+        ],
+        results: [
+          { subject: "HTML", marks: 78, grade: "B+" },
+          { subject: "C++", marks: 82, grade: "A" },
+          { subject: "DBMS", marks: 75, grade: "B+" },
+          { subject: "CN", marks: 80, grade: "A" }
+        ],
+        fees: [
+          { type: "Tuition Fee", amount: "₹25,000", status: "Paid" },
+          { type: "Library Fee", amount: "₹2,000", status: "Paid" },
+          { type: "Exam Fee", amount: "₹3,500", status: "Pending" }
+        ],
+        notices: [
+          "Website project submission deadline is 31 March 2026.",
+          "Mid-sem practical schedule will be released next week.",
+          "Carry your college ID for all lab sessions."
         ]
       },
       {
@@ -383,13 +687,34 @@
         dob: "14/02/2006",
         username: "shivansh.pandey",
         password: "shivansh@0060",
-        subjects: ["HTML", "C++", "DBMS", "CN"],
-        attendance: "86.1%",
+        attendance: 86.1,
+        subjects: [
+          { name: "HTML", code: "BCA101", faculty: "Ms. Sharma" },
+          { name: "C++", code: "BCA102", faculty: "Mr. Mehta" },
+          { name: "DBMS", code: "BCA103", faculty: "Dr. Verma" },
+          { name: "CN", code: "BCA104", faculty: "Ms. Kaur" }
+        ],
         assignments: [
-          "HTML Website Design",
-          "C++ OOP Concepts Assignment",
-          "DBMS Normalization Assignment",
-          "Computer Networks Topology Report"
+          { title: "HTML Forms Assignment", subject: "HTML", status: "Submitted" },
+          { title: "C++ Inheritance Program", subject: "C++", status: "Submitted" },
+          { title: "Normalization Exercise", subject: "DBMS", status: "Pending" },
+          { title: "Network Topology Chart", subject: "CN", status: "Submitted" }
+        ],
+        results: [
+          { subject: "HTML", marks: 88, grade: "A" },
+          { subject: "C++", marks: 91, grade: "A+" },
+          { subject: "DBMS", marks: 84, grade: "A" },
+          { subject: "CN", marks: 86, grade: "A" }
+        ],
+        fees: [
+          { type: "Tuition Fee", amount: "₹25,000", status: "Paid" },
+          { type: "Library Fee", amount: "₹2,000", status: "Paid" },
+          { type: "Exam Fee", amount: "₹3,500", status: "Paid" }
+        ],
+        notices: [
+          "Internal assessment marks have been uploaded.",
+          "DBMS viva will be conducted on Friday.",
+          "Attendance above 75% is mandatory for exams."
         ]
       },
       {
@@ -397,13 +722,34 @@
         dob: "18/08/2006",
         username: "mayank.kataria",
         password: "mayank@0037",
-        subjects: ["HTML", "C++", "DBMS", "CN"],
-        attendance: "100%",
+        attendance: 56.79,
+        subjects: [
+          { name: "HTML", code: "BCA101", faculty: "Ms. Sharma" },
+          { name: "C++", code: "BCA102", faculty: "Mr. Mehta" },
+          { name: "DBMS", code: "BCA103", faculty: "Dr. Verma" },
+          { name: "CN", code: "BCA104", faculty: "Ms. Kaur" }
+        ],
         assignments: [
-          "HTML Homepage Layout",
-          "C++ Loops and Arrays Program",
-          "DBMS SQL Queries Assignment",
-          "Computer Networks Basics Worksheet"
+          { title: "HTML Landing Page", subject: "HTML", status: "Pending" },
+          { title: "C++ Arrays Program", subject: "C++", status: "Pending" },
+          { title: "SQL Query File", subject: "DBMS", status: "Submitted" },
+          { title: "Computer Networks Basics", subject: "CN", status: "Pending" }
+        ],
+        results: [
+          { subject: "HTML", marks: 60, grade: "C+" },
+          { subject: "C++", marks: 58, grade: "C" },
+          { subject: "DBMS", marks: 67, grade: "B" },
+          { subject: "CN", marks: 61, grade: "C+" }
+        ],
+        fees: [
+          { type: "Tuition Fee", amount: "₹25,000", status: "Paid" },
+          { type: "Library Fee", amount: "₹2,000", status: "Pending" },
+          { type: "Exam Fee", amount: "₹3,500", status: "Pending" }
+        ],
+        notices: [
+          "Low attendance students must meet the class coordinator.",
+          "Submit pending assignments before the final review.",
+          "Computer Networks class test is scheduled next Monday."
         ]
       }
     ];
@@ -411,20 +757,18 @@
     const loginForm = document.getElementById("loginForm");
     const errorMessage = document.getElementById("errorMessage");
 
-    loginForm.addEventListener("submit", function (e) {
+    loginForm.addEventListener("submit", function(e) {
       e.preventDefault();
 
-      const usernameInput = document.getElementById("username").value.trim();
-      const passwordInput = document.getElementById("password").value.trim();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
 
-      const foundStudent = students.find(
-        student =>
-          student.username === usernameInput &&
-          student.password === passwordInput
+      const student = students.find(
+        s => s.username === username && s.password === password
       );
 
-      if (foundStudent) {
-        showDashboard(foundStudent);
+      if (student) {
+        showDashboard(student);
         errorMessage.textContent = "";
       } else {
         errorMessage.textContent = "Invalid username or password.";
@@ -435,37 +779,88 @@
       document.getElementById("loginPage").classList.add("hidden");
       document.getElementById("dashboardPage").classList.remove("hidden");
 
-      document.getElementById("welcomeText").textContent = `Welcome, ${student.name}`;
+      document.getElementById("profileAvatar").textContent = student.name.charAt(0).toUpperCase();
       document.getElementById("studentName").textContent = student.name;
-      document.getElementById("studentDob").textContent = student.dob;
       document.getElementById("studentUsername").textContent = student.username;
-      document.getElementById("studentAttendance").textContent = student.attendance;
+      document.getElementById("detailName").textContent = student.name;
+      document.getElementById("detailDob").textContent = student.dob;
+      document.getElementById("detailUsername").textContent = student.username;
+      document.getElementById("topWelcome").textContent = `Welcome back, ${student.name}`;
+      document.getElementById("topBadge").textContent = student.username;
 
-      const attendanceNumber = parseFloat(student.attendance);
+      document.getElementById("attendancePercent").textContent = student.attendance + "%";
+      document.getElementById("attendanceBar").style.width = student.attendance + "%";
+
       const attendanceStatus = document.getElementById("attendanceStatus");
+      attendanceStatus.className = "attendance-status";
 
-      if (attendanceNumber >= 75) {
-        attendanceStatus.innerHTML = `<span class="status-good">Good Standing</span>`;
-      } else if (attendanceNumber >= 60) {
-        attendanceStatus.innerHTML = `<span class="status-average">Average Attendance</span>`;
+      if (student.attendance >= 75) {
+        attendanceStatus.textContent = "Good";
+        attendanceStatus.classList.add("good");
+      } else if (student.attendance >= 60) {
+        attendanceStatus.textContent = "Average";
+        attendanceStatus.classList.add("average");
       } else {
-        attendanceStatus.innerHTML = `<span class="status-low">Low Attendance</span>`;
+        attendanceStatus.textContent = "Low";
+        attendanceStatus.classList.add("low");
       }
 
-      const subjectList = document.getElementById("subjectList");
-      subjectList.innerHTML = "";
-      student.subjects.forEach(subject => {
-        const li = document.createElement("li");
-        li.textContent = subject;
-        subjectList.appendChild(li);
+      const subjectsTableBody = document.getElementById("subjectsTableBody");
+      subjectsTableBody.innerHTML = "";
+      student.subjects.forEach((subject, index) => {
+        subjectsTableBody.innerHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${subject.name}</td>
+            <td>${subject.code}</td>
+            <td>${subject.faculty}</td>
+          </tr>
+        `;
       });
 
-      const assignmentList = document.getElementById("assignmentList");
-      assignmentList.innerHTML = "";
-      student.assignments.forEach(assignment => {
-        const li = document.createElement("li");
-        li.textContent = assignment;
-        assignmentList.appendChild(li);
+      const assignmentsTableBody = document.getElementById("assignmentsTableBody");
+      assignmentsTableBody.innerHTML = "";
+      student.assignments.forEach((assignment, index) => {
+        assignmentsTableBody.innerHTML += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${assignment.title}</td>
+            <td>${assignment.subject}</td>
+            <td><span class="assignment-status ${assignment.status.toLowerCase()}">${assignment.status}</span></td>
+            <td><a href="#" class="download-link">Download</a></td>
+          </tr>
+        `;
+      });
+
+      const resultsTableBody = document.getElementById("resultsTableBody");
+      resultsTableBody.innerHTML = "";
+      student.results.forEach(result => {
+        resultsTableBody.innerHTML += `
+          <tr>
+            <td>${result.subject}</td>
+            <td>${result.marks}</td>
+            <td>${result.grade}</td>
+          </tr>
+        `;
+      });
+
+      const feesTableBody = document.getElementById("feesTableBody");
+      feesTableBody.innerHTML = "";
+      student.fees.forEach(fee => {
+        const feeClass = fee.status.toLowerCase() === "paid" ? "paid" : "unpaid";
+        feesTableBody.innerHTML += `
+          <tr>
+            <td>${fee.type}</td>
+            <td>${fee.amount}</td>
+            <td><span class="fee-status ${feeClass}">${fee.status}</span></td>
+          </tr>
+        `;
+      });
+
+      const noticeList = document.getElementById("noticeList");
+      noticeList.innerHTML = "";
+      student.notices.forEach(notice => {
+        noticeList.innerHTML += `<li>${notice}</li>`;
       });
     }
 
@@ -473,7 +868,7 @@
       document.getElementById("dashboardPage").classList.add("hidden");
       document.getElementById("loginPage").classList.remove("hidden");
       document.getElementById("loginForm").reset();
-      errorMessage.textContent = "";
+      document.getElementById("errorMessage").textContent = "";
     }
   </script>
 </body>
