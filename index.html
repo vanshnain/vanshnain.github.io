@@ -1,82 +1,975 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>SmartRoute AI</title>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LogiCore — DAA Logistics Optimizer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 <style>
-body { font-family: Arial; background:#0a0a0a; color:white; text-align:center; }
-h1 { color:#00bcd4; }
+  :root {
+    --bg:       #0a0a0b;
+    --bg2:      #111114;
+    --bg3:      #18181d;
+    --border:   #2a2a33;
+    --orange:   #ff6b00;
+    --orange2:  #ff9500;
+    --orange3:  #ffb800;
+    --text:     #f0ede8;
+    --muted:    #6b6b7a;
+    --success:  #00e5a0;
+    --danger:   #ff4466;
+    --radius:   12px;
+    --font:     'Syne', sans-serif;
+    --mono:     'JetBrains Mono', monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100vh;
+    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255,107,0,.12), transparent);
+  }
 
-input,select,button {
-  padding:10px; margin:5px;
-  border-radius:8px;
-  border:none;
-}
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,11,.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px;
+    color: var(--orange);
+  }
+  .nav-logo span { color: var(--text); }
+  .nav-tabs { display: flex; gap: 2px; }
+  .nav-tab {
+    background: none; border: none; cursor: pointer;
+    color: var(--muted); font-family: var(--font); font-size: .85rem; font-weight: 600;
+    padding: .5rem 1rem; border-radius: 8px;
+    transition: all .2s;
+    letter-spacing: .3px;
+  }
+  .nav-tab:hover { color: var(--text); background: var(--bg3); }
+  .nav-tab.active { color: var(--orange); background: rgba(255,107,0,.12); }
+  .badge {
+    background: var(--orange); color: #000; font-size: .65rem;
+    font-weight: 700; padding: 1px 6px; border-radius: 99px;
+    font-family: var(--mono); margin-left: 4px;
+  }
 
-button {
-  background:#00bcd4;
-  cursor:pointer;
-}
+  /* ── HERO ── */
+  .hero {
+    max-width: 900px; margin: 0 auto; padding: 5rem 2rem 3rem;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: .5rem;
+    border: 1px solid var(--border); border-radius: 99px;
+    padding: .3rem 1rem; font-size: .75rem; font-weight: 600;
+    color: var(--orange); margin-bottom: 1.5rem;
+    font-family: var(--mono); letter-spacing: 1px;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -2px;
+  }
+  .hero h1 em { font-style: normal; color: var(--orange); }
+  .hero p {
+    margin-top: 1.2rem; color: var(--muted); font-size: 1.05rem;
+    max-width: 560px; margin-inline: auto; line-height: 1.6;
+  }
 
-#result {
-  margin-top:20px;
-  background:#111;
-  padding:15px;
-  border-radius:10px;
-}
+  /* ── VEHICLE LEGEND ── */
+  .vehicle-legend {
+    display: flex; gap: 1rem; justify-content: center;
+    flex-wrap: wrap; margin: 2rem auto; max-width: 700px;
+  }
+  .v-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1rem 1.5rem;
+    display: flex; align-items: center; gap: .75rem;
+    transition: border-color .2s, transform .2s;
+  }
+  .v-card:hover { border-color: var(--orange); transform: translateY(-2px); }
+  .v-icon { font-size: 2rem; }
+  .v-info { text-align: left; }
+  .v-name { font-weight: 700; font-size: .95rem; }
+  .v-range { font-size: .75rem; color: var(--muted); font-family: var(--mono); }
+
+  /* ── MAIN LAYOUT ── */
+  main { max-width: 1200px; margin: 0 auto; padding: 0 2rem 6rem; }
+  .section { display: none; }
+  .section.active { display: block; animation: fadeUp .35s ease; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .card-title {
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .card-title .num {
+    background: var(--orange); color: #000;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .8rem; font-weight: 800; flex-shrink: 0;
+  }
+
+  /* ── FORMS ── */
+  .row { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .field { display: flex; flex-direction: column; gap: .4rem; flex: 1; min-width: 160px; }
+  label { font-size: .8rem; font-weight: 600; color: var(--muted); letter-spacing: .5px; }
+  input, select, textarea {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text);
+    font-family: var(--mono); font-size: .9rem;
+    padding: .6rem .85rem; outline: none;
+    transition: border-color .2s;
+    width: 100%;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--orange); }
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    border: none; border-radius: 8px; cursor: pointer;
+    font-family: var(--font); font-weight: 700; font-size: .9rem;
+    padding: .65rem 1.4rem; transition: all .2s;
+  }
+  .btn-primary {
+    background: var(--orange); color: #000;
+  }
+  .btn-primary:hover { background: var(--orange2); transform: translateY(-1px); }
+  .btn-secondary {
+    background: var(--bg3); color: var(--text); border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--orange); }
+  .btn-sm { padding: .4rem .9rem; font-size: .8rem; }
+  .btn-group { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1rem; }
+
+  /* ── RESULT BOX ── */
+  .result-box {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+    margin-top: 1.25rem; font-family: var(--mono); font-size: .82rem;
+    line-height: 1.7; min-height: 60px;
+  }
+  .result-box.loading { color: var(--muted); }
+  .stat-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
+  .stat { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: .75rem 1.1rem; }
+  .stat .val { font-size: 1.3rem; font-weight: 800; color: var(--orange); font-family: var(--mono); }
+  .stat .lbl { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+
+  /* ── TABLE ── */
+  .tbl-wrap { overflow-x: auto; margin-top: 1rem; border-radius: 8px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  th { background: var(--bg3); color: var(--muted); font-weight: 600;
+       padding: .6rem 1rem; text-align: left; font-family: var(--mono);
+       border-bottom: 1px solid var(--border); letter-spacing: .5px; }
+  td { padding: .55rem 1rem; border-bottom: 1px solid rgba(255,255,255,.04); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,107,0,.04); }
+
+  /* ── VEHICLE CHIP ── */
+  .v-chip {
+    display: inline-flex; align-items: center; gap: .3rem;
+    font-size: .72rem; font-weight: 600; padding: .2rem .6rem;
+    border-radius: 99px; border: 1px solid;
+    font-family: var(--mono);
+  }
+  .chip-2w  { color: #ff6b00; border-color: #ff6b0055; background: #ff6b0011; }
+  .chip-4s  { color: #ff9500; border-color: #ff950055; background: #ff950011; }
+  .chip-4b  { color: #ffb800; border-color: #ffb80055; background: #ffb80011; }
+
+  /* ── GRAPH CANVAS ── */
+  #graph-canvas {
+    width: 100%; height: 340px;
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: var(--radius); margin-top: 1rem;
+    cursor: pointer;
+  }
+
+  /* ── COMPLEXITY PILL ── */
+  .cpx {
+    display: inline-flex; align-items: center;
+    background: rgba(255,107,0,.12); border: 1px solid rgba(255,107,0,.3);
+    color: var(--orange); border-radius: 99px;
+    padding: .2rem .8rem; font-size: .75rem;
+    font-family: var(--mono); font-weight: 600;
+  }
+
+  /* ── ALGO SWITCHER ── */
+  .algo-tabs { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .algo-tab {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: 8px; padding: .4rem .9rem;
+    font-family: var(--mono); font-size: .78rem; font-weight: 600;
+    cursor: pointer; color: var(--muted); transition: all .2s;
+  }
+  .algo-tab.active { background: rgba(255,107,0,.15); border-color: var(--orange); color: var(--orange); }
+
+  /* ── SECTION HEADER ── */
+  .sec-header { margin-bottom: 2rem; padding-top: 1rem; }
+  .sec-header h2 { font-size: 1.8rem; font-weight: 800; letter-spacing: -1px; }
+  .sec-header p { color: var(--muted); font-size: .9rem; margin-top: .4rem; }
+
+  /* ── PATH DISPLAY ── */
+  .path-display {
+    display: flex; align-items: center; gap: .4rem;
+    flex-wrap: wrap; margin: .75rem 0;
+  }
+  .path-node {
+    background: rgba(255,107,0,.15); border: 1px solid rgba(255,107,0,.4);
+    border-radius: 6px; padding: .3rem .7rem;
+    font-size: .8rem; font-family: var(--mono); font-weight: 600; color: var(--orange);
+  }
+  .path-arrow { color: var(--muted); font-size: .9rem; }
+
+  /* ── DP TABLE PREVIEW ── */
+  .dp-preview {
+    overflow-x: auto; font-family: var(--mono); font-size: .7rem;
+    margin-top: 1rem;
+  }
+  .dp-preview table { border-collapse: separate; border-spacing: 2px; }
+  .dp-preview td {
+    background: var(--bg3); border: none;
+    padding: .25rem .45rem; border-radius: 4px;
+    text-align: center; min-width: 30px;
+    color: var(--muted);
+  }
+  .dp-preview td.max-val { background: rgba(255,107,0,.25); color: var(--orange); font-weight: 700; }
+
+  footer {
+    text-align: center; padding: 2rem;
+    color: var(--muted); font-size: .8rem;
+    border-top: 1px solid var(--border);
+  }
 </style>
 </head>
-
 <body>
 
-<h1>🚚 SmartRoute AI</h1>
+<nav>
+  <div class="nav-logo">Logi<span>Core</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showSection('home')">Home</button>
+    <button class="nav-tab" onclick="showSection('sort')">Sort <span class="badge">M1</span></button>
+    <button class="nav-tab" onclick="showSection('route')">Routes <span class="badge">M2</span></button>
+    <button class="nav-tab" onclick="showSection('greedy')">Greedy <span class="badge">M3</span></button>
+    <button class="nav-tab" onclick="showSection('dp')">DP <span class="badge">M4</span></button>
+    <button class="nav-tab" onclick="showSection('dc')">D&amp;C <span class="badge">M5</span></button>
+  </div>
+</nav>
 
-<select id="key">
-  <option value="deadline">Deadline</option>
-  <option value="priority">Priority</option>
-  <option value="weight">Weight</option>
-  <option value="score">🔥 Smart Score</option>
-</select>
+<!-- ══════════════ HOME ══════════════ -->
+<section id="home" class="section active">
+  <div class="hero">
+    <div class="hero-eyebrow">⚡ DAA PROJECT — LOGISTICS OPTIMIZATION</div>
+    <h1>Smart <em>Delivery</em><br>Algorithmic Engine</h1>
+    <p>Implements Merge Sort, Dijkstra, Greedy Knapsack, Dynamic Programming &amp; Divide and Conquer — all live, all real.</p>
+  </div>
 
-<br>
+  <div class="vehicle-legend">
+    <div class="v-card">
+      <div class="v-icon">🛵</div>
+      <div class="v-info">
+        <div class="v-name">2-Wheeler</div>
+        <div class="v-range">Weight &lt; 25 kg</div>
+      </div>
+    </div>
+    <div class="v-card">
+      <div class="v-icon">🚗</div>
+      <div class="v-info">
+        <div class="v-name">4-Wheeler Small</div>
+        <div class="v-range">25 kg – 45 kg</div>
+      </div>
+    </div>
+    <div class="v-card">
+      <div class="v-icon">🚛</div>
+      <div class="v-info">
+        <div class="v-name">4-Wheeler Big</div>
+        <div class="v-range">Weight &gt; 45 kg</div>
+      </div>
+    </div>
+  </div>
 
-<button onclick="run()">Optimize</button>
+  <main>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem;">
+      <div class="card" style="border-color:rgba(255,107,0,.3);cursor:pointer;" onclick="showSection('sort')">
+        <div style="font-size:2rem;margin-bottom:.75rem;">⚙️</div>
+        <div style="font-weight:700;margin-bottom:.4rem;">Module 1 — Sorting</div>
+        <div style="color:var(--muted);font-size:.85rem;">Merge Sort · Quick Sort · Heap Sort. Prioritize deliveries by deadline, weight, or priority.</div>
+        <div style="margin-top:1rem;" class="cpx">O(n log n)</div>
+      </div>
+      <div class="card" style="border-color:rgba(255,107,0,.3);cursor:pointer;" onclick="showSection('route')">
+        <div style="font-size:2rem;margin-bottom:.75rem;">🗺️</div>
+        <div style="font-weight:700;margin-bottom:.4rem;">Module 2 — Graph Routes</div>
+        <div style="color:var(--muted);font-size:.85rem;">Dijkstra & Bellman-Ford for optimal city-to-city delivery paths.</div>
+        <div style="margin-top:1rem;" class="cpx">O((V+E) log V)</div>
+      </div>
+      <div class="card" style="border-color:rgba(255,107,0,.3);cursor:pointer;" onclick="showSection('greedy')">
+        <div style="font-size:2rem;margin-bottom:.75rem;">💡</div>
+        <div style="font-weight:700;margin-bottom:.4rem;">Module 3 — Greedy</div>
+        <div style="color:var(--muted);font-size:.85rem;">Fractional Knapsack for real-time vehicle loading maximization.</div>
+        <div style="margin-top:1rem;" class="cpx">O(n log n)</div>
+      </div>
+      <div class="card" style="border-color:rgba(255,107,0,.3);cursor:pointer;" onclick="showSection('dp')">
+        <div style="font-size:2rem;margin-bottom:.75rem;">📊</div>
+        <div style="font-weight:700;margin-bottom:.4rem;">Module 4 — DP Knapsack</div>
+        <div style="color:var(--muted);font-size:.85rem;">0/1 Knapsack for globally optimal package selection per vehicle.</div>
+        <div style="margin-top:1rem;" class="cpx">O(n × W)</div>
+      </div>
+      <div class="card" style="border-color:rgba(255,107,0,.3);cursor:pointer;" onclick="showSection('dc')">
+        <div style="font-size:2rem;margin-bottom:.75rem;">🔀</div>
+        <div style="font-weight:700;margin-bottom:.4rem;">Module 5 — Divide &amp; Conquer</div>
+        <div style="color:var(--muted);font-size:.85rem;">Closest pair of warehouses using recursive divide-and-conquer.</div>
+        <div style="margin-top:1rem;" class="cpx">T(n) = 2T(n/2) + O(n)</div>
+      </div>
+    </div>
+  </main>
+</section>
 
-<div id="result"></div>
+<!-- ══════════════ MODULE 1: SORT ══════════════ -->
+<section id="sort" class="section">
+<main>
+  <div class="sec-header">
+    <h2>📦 Delivery Prioritization</h2>
+    <p>Sort incoming packages using Merge Sort (stable), Quick Sort (fast), or Heap Sort (in-place)</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> Configure Packages</div>
+    <div class="row">
+      <div class="field">
+        <label>NUMBER OF PACKAGES</label>
+        <input type="number" id="sort-n" value="6" min="2" max="20" />
+      </div>
+      <div class="field">
+        <label>SORT BY</label>
+        <select id="sort-key">
+          <option value="deadline">Deadline (hours)</option>
+          <option value="weight">Weight (kg)</option>
+          <option value="priority">Priority (1-10)</option>
+          <option value="value">Value (₹)</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="generateAndSort()">🎲 Generate & Sort</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> Choose Algorithm</div>
+    <div class="algo-tabs">
+      <div class="algo-tab active" onclick="selectAlgo(this,'sort-algo','merge')">Merge Sort</div>
+      <div class="algo-tab" onclick="selectAlgo(this,'sort-algo','quick')">Quick Sort</div>
+      <div class="algo-tab" onclick="selectAlgo(this,'sort-algo','heap')">Heap Sort</div>
+    </div>
+    <input type="hidden" id="sort-algo" value="merge" />
+
+    <div id="sort-result" class="result-box" style="color:var(--muted);">
+      Click "Generate &amp; Sort" to see results...
+    </div>
+  </div>
+</main>
+</section>
+
+<!-- ══════════════ MODULE 2: ROUTE ══════════════ -->
+<section id="route" class="section">
+<main>
+  <div class="sec-header">
+    <h2>🗺️ Route Optimization</h2>
+    <p>Find shortest delivery path using Dijkstra or Bellman-Ford on a city graph</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> Graph Setup</div>
+    <div class="row">
+      <div class="field">
+        <label>START CITY</label>
+        <select id="route-start">
+          <option>Delhi</option><option>Mumbai</option><option>Bangalore</option>
+          <option>Chennai</option><option>Kolkata</option><option>Hyderabad</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>END CITY</label>
+        <select id="route-end">
+          <option>Hyderabad</option><option>Delhi</option><option>Mumbai</option>
+          <option>Bangalore</option><option>Chennai</option><option>Kolkata</option>
+        </select>
+      </div>
+    </div>
+    <div class="algo-tabs" style="margin-top:1rem;">
+      <div class="algo-tab active" onclick="selectAlgo(this,'route-algo','dijkstra')">Dijkstra</div>
+      <div class="algo-tab" onclick="selectAlgo(this,'route-algo','bellman')">Bellman-Ford</div>
+    </div>
+    <input type="hidden" id="route-algo" value="dijkstra" />
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="findRoute()">🚀 Find Optimal Route</button>
+      <button class="btn btn-secondary" onclick="drawSampleGraph()">🔄 Sample Graph</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> City Network</div>
+    <canvas id="graph-canvas" width="800" height="340"></canvas>
+    <div id="route-result" class="result-box" style="color:var(--muted);">Select cities and click Find Route...</div>
+  </div>
+</main>
+</section>
+
+<!-- ══════════════ MODULE 3: GREEDY ══════════════ -->
+<section id="greedy" class="section">
+<main>
+  <div class="sec-header">
+    <h2>💡 Vehicle Loading — Fractional Knapsack</h2>
+    <p>Greedily maximize delivery value within vehicle weight capacity</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> Vehicle Capacity</div>
+    <div class="row">
+      <div class="field">
+        <label>VEHICLE CAPACITY (KG)</label>
+        <input type="number" id="greedy-cap" value="80" />
+      </div>
+      <div class="field">
+        <label>PACKAGES</label>
+        <input type="number" id="greedy-n" value="8" min="2" max="20" />
+      </div>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="runGreedy()">⚡ Run Fractional Knapsack</button>
+      <button class="btn btn-secondary" onclick="generateGreedy()">🎲 Generate Packages</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> Loading Result</div>
+    <div id="greedy-result" class="result-box" style="color:var(--muted);">Generate packages and run the algorithm...</div>
+  </div>
+</main>
+</section>
+
+<!-- ══════════════ MODULE 4: DP ══════════════ -->
+<section id="dp" class="section">
+<main>
+  <div class="sec-header">
+    <h2>📊 0/1 Knapsack — Optimal Selection</h2>
+    <p>DP ensures globally optimal selection — greedy may fail here</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> Setup</div>
+    <div class="row">
+      <div class="field">
+        <label>VEHICLE CAPACITY (KG, INTEGER)</label>
+        <input type="number" id="dp-cap" value="50" />
+      </div>
+      <div class="field">
+        <label>PACKAGES</label>
+        <input type="number" id="dp-n" value="6" min="2" max="12" />
+      </div>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="runDP()">🧠 Run DP Knapsack</button>
+      <button class="btn btn-secondary" onclick="generateDP()">🎲 Generate Packages</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> DP Result</div>
+    <div id="dp-result" class="result-box" style="color:var(--muted);">Generate packages and run DP...</div>
+  </div>
+</main>
+</section>
+
+<!-- ══════════════ MODULE 5: D&C ══════════════ -->
+<section id="dc" class="section">
+<main>
+  <div class="sec-header">
+    <h2>🔀 Closest Warehouse Pair</h2>
+    <p>Divide &amp; Conquer closest-pair algorithm — T(n) = 2T(n/2) + O(n)</p>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">1</span> Warehouse Grid</div>
+    <div class="row">
+      <div class="field">
+        <label>NUMBER OF WAREHOUSES</label>
+        <input type="number" id="dc-n" value="8" min="3" max="16" />
+      </div>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="runDC()">🔀 Find Closest Pair</button>
+      <button class="btn btn-secondary" onclick="generateDC()">🎲 Generate Warehouses</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title"><span class="num">2</span> Result</div>
+    <canvas id="dc-canvas" width="700" height="300" style="width:100%;height:300px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1rem;"></canvas>
+    <div id="dc-result" class="result-box" style="color:var(--muted);">Generate warehouses and run algorithm...</div>
+  </div>
+</main>
+</section>
+
+<footer>LogiCore — DAA Assignment &nbsp;|&nbsp; Algorithms: Merge Sort · Dijkstra · Greedy Knapsack · DP · Divide &amp; Conquer</footer>
 
 <script>
-async function run(){
-  const key = document.getElementById("key").value;
+const API = 'http://localhost:5000/api';
 
-  document.getElementById("result").innerHTML = "Optimizing using SmartRoute AI...";
-
-  const data = await fetch("http://localhost:5000/api/generate");
-  const json = await data.json();
-
-  const res = await fetch("http://localhost:5000/api/sort",{
-    method:"POST",
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({
-      packages: json.packages,
-      key: key
-    })
-  });
-
-  const out = await res.json();
-
-  let html = "<h3>Result:</h3>";
-
-  out.sorted.forEach(p=>{
-    html += `
-      <p>
-        ${p.id} | Priority: ${p.priority} | Deadline: ${p.deadline} 
-        | Score: ${p.score.toFixed(2)} | ${p.vehicle.icon}
-      </p>`;
-  });
-
-  document.getElementById("result").innerHTML = html;
+// ── NAV ──
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const tabs = document.querySelectorAll('.nav-tab');
+  tabs.forEach(t => { if (t.textContent.toLowerCase().includes(id.slice(0,4))) t.classList.add('active'); });
+  // Special case for home
+  if (id === 'home') tabs[0].classList.add('active');
+  window.scrollTo(0,0);
 }
-</script>
 
+function selectAlgo(el, inputId, val) {
+  el.closest('.card, .section').querySelectorAll('.algo-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(inputId).value = val;
+}
+
+// ── VEHICLE CHIP ──
+function vChip(v) {
+  if (!v) return '';
+  let cls = v.type.includes('Big') ? 'chip-4b' : v.type.includes('Small') ? 'chip-4s' : 'chip-2w';
+  return `<span class="v-chip ${cls}">${v.icon} ${v.type}</span>`;
+}
+
+// ── SAMPLE DATA STATE ──
+let sampleData = null;
+
+async function getSample(n = 8) {
+  const r = await fetch(`${API}/generate?n=${n}`);
+  sampleData = await r.json();
+  return sampleData;
+}
+
+// ──────────────────────────────────────────────
+//  MODULE 1: SORT
+// ──────────────────────────────────────────────
+async function generateAndSort() {
+  const n = +document.getElementById('sort-n').value;
+  const key = document.getElementById('sort-key').value;
+  const algo = document.getElementById('sort-algo').value;
+  const el = document.getElementById('sort-result');
+  el.textContent = 'Sorting…'; el.classList.add('loading');
+
+  try {
+    const data = await getSample(n);
+    const resp = await fetch(`${API}/sort`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ packages: data.packages, algorithm: algo, key })
+    });
+    const res = await resp.json();
+    el.classList.remove('loading');
+
+    const header = `
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;">
+        <span style="font-size:.85rem;color:var(--text);font-weight:700;">${res.algorithm}</span>
+        <span class="cpx">${res.complexity}</span>
+        <span style="color:var(--muted);font-size:.8rem;">⏱ ${res.time_ms} ms</span>
+        <span style="color:var(--muted);font-size:.8rem;">📦 ${res.count} packages</span>
+      </div>`;
+    const rows = res.sorted.map((p, i) => `
+      <tr>
+        <td style="color:var(--orange);font-weight:700;">#${i+1}</td>
+        <td>${p.id}</td>
+        <td>${p.weight} kg</td>
+        <td style="color:var(--text);">${p[key]}</td>
+        <td>${p.priority}</td>
+        <td>₹${p.value}</td>
+        <td>${vChip(p.vehicle)}</td>
+      </tr>`).join('');
+
+    el.innerHTML = `${header}
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>ID</th><th>Weight</th><th>${key.toUpperCase()}</th><th>Priority</th><th>Value</th><th>Vehicle</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>`;
+  } catch(e) {
+    el.innerHTML = `<span style="color:var(--danger);">⚠️ Backend not running. Start Flask: <code>python app.py</code></span>
+    <br><br><span style="color:var(--muted);">Demo mode: showing sample output below.</span>`;
+    showDemoSort(n, key, algo);
+  }
+}
+
+function showDemoSort(n, key, algo) {
+  const el = document.getElementById('sort-result');
+  const demo = [];
+  for (let i = 0; i < n; i++) {
+    const w = +(Math.random()*79+1).toFixed(1);
+    let v; if (w<25) v={type:'2-Wheeler',icon:'🛵'}; else if (w<=45) v={type:'4-Wheeler Small',icon:'🚗'}; else v={type:'4-Wheeler Big',icon:'🚛'};
+    demo.push({id:`PKG-${String(i+1).padStart(3,'0')}`, weight:w, deadline:Math.ceil(Math.random()*24), priority:Math.ceil(Math.random()*10), value:+(Math.random()*450+50).toFixed(2), vehicle:v});
+  }
+  demo.sort((a,b) => a[key]-b[key]);
+  const rows = demo.map((p,i) => `<tr><td style="color:var(--orange);font-weight:700;">#${i+1}</td><td>${p.id}</td><td>${p.weight}kg</td><td>${p[key]}</td><td>${p.priority}</td><td>₹${p.value}</td><td>${vChip(p.vehicle)}</td></tr>`).join('');
+  el.innerHTML += `<div class="tbl-wrap"><table><thead><tr><th>#</th><th>ID</th><th>Weight</th><th>${key}</th><th>Priority</th><th>Value</th><th>Vehicle</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+// ──────────────────────────────────────────────
+//  MODULE 2: ROUTE / GRAPH
+// ──────────────────────────────────────────────
+const CITIES = {
+  Delhi:     {x:320, y:80},  Mumbai:    {x:160, y:220},
+  Bangalore: {x:240, y:340}, Chennai:   {x:320, y:380},
+  Kolkata:   {x:520, y:160}, Hyderabad: {x:300, y:280}
+};
+const EDGES_DEF = [
+  {from:'Delhi',to:'Mumbai',weight:1400},
+  {from:'Delhi',to:'Kolkata',weight:1300},
+  {from:'Mumbai',to:'Bangalore',weight:980},
+  {from:'Mumbai',to:'Hyderabad',weight:710},
+  {from:'Bangalore',to:'Chennai',weight:350},
+  {from:'Bangalore',to:'Hyderabad',weight:570},
+  {from:'Hyderabad',to:'Chennai',weight:630},
+  {from:'Kolkata',to:'Hyderabad',weight:1500},
+  {from:'Delhi',to:'Hyderabad',weight:1600}
+];
+
+let routePath = [];
+
+function drawSampleGraph(highlight=[]) {
+  const canvas = document.getElementById('graph-canvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  const scaleX = W/640, scaleY = H/480;
+
+  // edges
+  EDGES_DEF.forEach(e => {
+    const a = CITIES[e.from], b = CITIES[e.to];
+    const inPath = highlight.length > 1 &&
+      highlight.some((n,i) => i < highlight.length-1 &&
+        ((n===e.from && highlight[i+1]===e.to)||(n===e.to && highlight[i+1]===e.from)));
+    ctx.beginPath();
+    ctx.moveTo(a.x*scaleX, a.y*scaleY);
+    ctx.lineTo(b.x*scaleX, b.y*scaleY);
+    ctx.strokeStyle = inPath ? '#ff6b00' : '#2a2a33';
+    ctx.lineWidth = inPath ? 3 : 1.5;
+    ctx.stroke();
+    // weight label
+    const mx = (a.x+b.x)/2*scaleX, my = (a.y+b.y)/2*scaleY;
+    ctx.fillStyle = inPath ? '#ff9500' : '#6b6b7a';
+    ctx.font = `${inPath?'600 ':''}.72rem JetBrains Mono, monospace`;
+    ctx.textAlign = 'center';
+    ctx.fillText(e.weight+'km', mx, my-5);
+  });
+
+  // nodes
+  Object.entries(CITIES).forEach(([name, pos]) => {
+    const inPath = highlight.includes(name);
+    const x = pos.x * scaleX, y = pos.y * scaleY;
+    ctx.beginPath();
+    ctx.arc(x, y, inPath ? 14 : 10, 0, Math.PI*2);
+    ctx.fillStyle = inPath ? '#ff6b00' : '#18181d';
+    ctx.fill();
+    ctx.strokeStyle = inPath ? '#ff9500' : '#2a2a33';
+    ctx.lineWidth = inPath ? 2.5 : 1.5;
+    ctx.stroke();
+    ctx.fillStyle = inPath ? '#000' : '#f0ede8';
+    ctx.font = `700 .72rem Syne, sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText(name.slice(0,3).toUpperCase(), x, y+4);
+    ctx.fillStyle = '#6b6b7a'; ctx.font = '.65rem Syne,sans-serif';
+    ctx.fillText(name, x, y+22);
+  });
+}
+
+async function findRoute() {
+  const start = document.getElementById('route-start').value;
+  const end = document.getElementById('route-end').value;
+  const algo = document.getElementById('route-algo').value;
+  const el = document.getElementById('route-result');
+  el.textContent = 'Calculating…';
+
+  try {
+    const resp = await fetch(`${API}/route`, {
+      method: 'POST', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        nodes: Object.keys(CITIES), edges: EDGES_DEF,
+        start, end, algorithm: algo
+      })
+    });
+    const res = await resp.json();
+    routePath = res.path;
+    drawSampleGraph(routePath);
+
+    const pathHTML = routePath.map(n => `<div class="path-node">${n}</div>`).join('<div class="path-arrow">→</div>');
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.75rem;">
+        <span style="font-weight:700;">${algo === 'dijkstra' ? 'Dijkstra' : 'Bellman-Ford'}</span>
+        <span class="cpx">${res.complexity}</span>
+        <span style="color:var(--muted);font-size:.8rem;">⏱ ${res.time_ms}ms</span>
+      </div>
+      <div class="path-display">${pathHTML}</div>
+      <div class="stat-row">
+        <div class="stat"><div class="val">${res.cost === -1 ? '∞' : res.cost + ' km'}</div><div class="lbl">Total Distance</div></div>
+        <div class="stat"><div class="val">${routePath.length}</div><div class="lbl">Stops</div></div>
+      </div>`;
+  } catch(e) {
+    drawSampleGraph();
+    // Demo fallback
+    const demoPath = [start,'Hyderabad',end].filter((v,i,a)=>a.indexOf(v)===i);
+    routePath = demoPath;
+    drawSampleGraph(demoPath);
+    el.innerHTML = `<span style="color:var(--danger);">⚠️ Backend offline — showing demo route.</span><div class="path-display">${demoPath.map(n=>`<div class="path-node">${n}</div>`).join('<div class="path-arrow">→</div>')}</div>`;
+  }
+}
+
+// ──────────────────────────────────────────────
+//  MODULE 3: GREEDY
+// ──────────────────────────────────────────────
+let greedyPackages = [];
+
+async function generateGreedy() {
+  const n = +document.getElementById('greedy-n').value;
+  try {
+    const data = await getSample(n);
+    greedyPackages = data.packages;
+  } catch {
+    greedyPackages = [];
+    for (let i = 0; i < n; i++) {
+      const w = +(Math.random()*79+1).toFixed(1);
+      greedyPackages.push({id:`PKG-${String(i+1).padStart(3,'0')}`,weight:w,value:+(Math.random()*450+50).toFixed(2),priority:Math.ceil(Math.random()*10)});
+    }
+  }
+  document.getElementById('greedy-result').innerHTML = `<span style="color:var(--success);">✓ Generated ${greedyPackages.length} packages. Click "Run Fractional Knapsack".</span>`;
+}
+
+async function runGreedy() {
+  if (!greedyPackages.length) { await generateGreedy(); }
+  const cap = +document.getElementById('greedy-cap').value;
+  const el = document.getElementById('greedy-result');
+  el.textContent = 'Running greedy…';
+
+  try {
+    const resp = await fetch(`${API}/greedy`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({packages: greedyPackages, capacity: cap})
+    });
+    const res = await resp.json();
+    renderGreedyResult(res, cap);
+  } catch {
+    // demo
+    const sorted = [...greedyPackages].sort((a,b)=>(b.value/b.weight)-(a.value/a.weight));
+    let rem = cap, total = 0, selected = [];
+    for (const p of sorted) {
+      if (rem <= 0) break;
+      let v; if(p.weight<25) v={type:'2-Wheeler',icon:'🛵'}; else if(p.weight<=45) v={type:'4-Wheeler Small',icon:'🚗'}; else v={type:'4-Wheeler Big',icon:'🚛'};
+      if (p.weight <= rem) { selected.push({...p,fraction:1.0,taken_weight:p.weight,vehicle:v}); total+=p.value; rem-=p.weight; }
+      else { const f=rem/p.weight; selected.push({...p,fraction:+f.toFixed(3),taken_weight:+rem.toFixed(2),vehicle:v}); total+=p.value*f; rem=0; }
+    }
+    renderGreedyResult({selected, total_value:+total.toFixed(2), used_capacity:+(cap-rem).toFixed(2), capacity:cap, complexity:'O(n log n)', time_ms:0}, cap);
+  }
+}
+
+function renderGreedyResult(res, cap) {
+  const el = document.getElementById('greedy-result');
+  const pct = Math.round(res.used_capacity/res.capacity*100);
+  const bar = `<div style="background:var(--bg);border-radius:4px;height:10px;overflow:hidden;margin:.5rem 0;">
+    <div style="background:linear-gradient(90deg,var(--orange),var(--orange3));width:${pct}%;height:100%;border-radius:4px;transition:width .5s;"></div></div>`;
+  const rows = res.selected.map(p => `<tr>
+    <td>${p.id}</td><td>${p.weight}kg</td><td>₹${p.value}</td>
+    <td>${p.taken_weight}kg</td>
+    <td>${p.fraction===1 ? '<span style="color:var(--success)">Full</span>' : `<span style="color:var(--orange)">${(p.fraction*100).toFixed(1)}%</span>`}</td>
+    <td>${vChip(p.vehicle)}</td></tr>`).join('');
+  el.innerHTML = `<div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem;">
+    <span class="cpx">${res.complexity}</span><span style="color:var(--muted);font-size:.8rem;">⏱ ${res.time_ms}ms</span></div>
+    <div class="stat-row" style="margin-bottom:1rem;">
+      <div class="stat"><div class="val">₹${res.total_value}</div><div class="lbl">Total Value</div></div>
+      <div class="stat"><div class="val">${res.used_capacity}/${res.capacity}kg</div><div class="lbl">Capacity Used</div></div>
+      <div class="stat"><div class="val">${pct}%</div><div class="lbl">Load Factor</div></div>
+    </div>${bar}
+    <div class="tbl-wrap"><table><thead><tr><th>ID</th><th>Weight</th><th>Value</th><th>Taken</th><th>Fraction</th><th>Vehicle</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+// ──────────────────────────────────────────────
+//  MODULE 4: DP
+// ──────────────────────────────────────────────
+let dpPackages = [];
+
+async function generateDP() {
+  const n = Math.min(+document.getElementById('dp-n').value, 12);
+  try {
+    const data = await getSample(n);
+    dpPackages = data.packages.map(p => ({...p, weight: Math.round(p.weight), value: Math.round(p.value)}));
+  } catch {
+    dpPackages = [];
+    for (let i = 0; i < n; i++) {
+      const w = Math.ceil(Math.random()*30+1);
+      dpPackages.push({id:`PKG-${String(i+1).padStart(3,'0')}`,weight:w,value:Math.ceil(Math.random()*400+50),priority:Math.ceil(Math.random()*10)});
+    }
+  }
+  document.getElementById('dp-result').innerHTML = `<span style="color:var(--success);">✓ Generated ${dpPackages.length} packages. Click "Run DP Knapsack".</span>`;
+}
+
+async function runDP() {
+  if (!dpPackages.length) { await generateDP(); }
+  const cap = +document.getElementById('dp-cap').value;
+  const el = document.getElementById('dp-result');
+  el.textContent = 'Running DP…';
+
+  try {
+    const resp = await fetch(`${API}/dp`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({packages: dpPackages, capacity: cap})
+    });
+    const res = await resp.json();
+    renderDPResult(res, cap);
+  } catch {
+    // demo fallback
+    const n=dpPackages.length, W=cap;
+    const wts=dpPackages.map(p=>+p.weight), vs=dpPackages.map(p=>+p.value);
+    const dp=Array.from({length:n+1},()=>new Array(W+1).fill(0));
+    for(let i=1;i<=n;i++) for(let w=0;w<=W;w++){dp[i][w]=dp[i-1][w];if(wts[i-1]<=w) dp[i][w]=Math.max(dp[i][w],dp[i-1][w-wts[i-1]]+vs[i-1]);}
+    const ids=[];let w=W;
+    for(let i=n;i>0;i--){if(dp[i][w]!==dp[i-1][w]){ids.push(dpPackages[i-1].id);w-=wts[i-1];}}
+    const selected=dpPackages.filter(p=>ids.includes(p.id)).map(p=>{let v;if(p.weight<25)v={type:'2-Wheeler',icon:'🛵'};else if(p.weight<=45)v={type:'4-Wheeler Small',icon:'🚗'};else v={type:'4-Wheeler Big',icon:'🚛'};return{...p,vehicle:v};});
+    renderDPResult({selected,max_value:dp[n][W],capacity:W,dp_table_size:`${n+1} × ${W+1}`,complexity:'O(n × W)',time_ms:0}, cap);
+  }
+}
+
+function renderDPResult(res, cap) {
+  const el = document.getElementById('dp-result');
+  const usedW = res.selected.reduce((s,p)=>s+p.weight,0);
+  const rows = res.selected.map(p=>`<tr><td>${p.id}</td><td>${p.weight}kg</td><td>₹${p.value}</td><td>${vChip(p.vehicle)}</td></tr>`).join('');
+  el.innerHTML = `<div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem;">
+    <span class="cpx">${res.complexity}</span>
+    <span style="color:var(--muted);font-size:.8rem;">DP Table: ${res.dp_table_size}</span>
+    <span style="color:var(--muted);font-size:.8rem;">⏱ ${res.time_ms}ms</span></div>
+    <div class="stat-row" style="margin-bottom:1rem;">
+      <div class="stat"><div class="val">₹${res.max_value}</div><div class="lbl">Max Value (Optimal)</div></div>
+      <div class="stat"><div class="val">${usedW}/${cap}kg</div><div class="lbl">Weight Used</div></div>
+      <div class="stat"><div class="val">${res.selected.length}</div><div class="lbl">Packages Selected</div></div>
+    </div>
+    <div class="tbl-wrap"><table><thead><tr><th>Package</th><th>Weight</th><th>Value</th><th>Vehicle</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div style="color:var(--muted);font-size:.75rem;margin-top:.75rem;font-family:var(--mono);">
+      💡 DP guarantees GLOBAL optimum. Greedy may miss: e.g. two light items worth more than one heavy item.
+    </div>`;
+}
+
+// ──────────────────────────────────────────────
+//  MODULE 5: DIVIDE & CONQUER
+// ──────────────────────────────────────────────
+let dcWarehouses = [];
+
+function generateDC() {
+  const n = +document.getElementById('dc-n').value;
+  dcWarehouses = [];
+  for (let i = 0; i < n; i++) {
+    dcWarehouses.push({id:i, name:`WH-${String.fromCharCode(65+i)}`, x:Math.round(Math.random()*90+5), y:Math.round(Math.random()*90+5)});
+  }
+  drawDCCanvas([]);
+  document.getElementById('dc-result').innerHTML = `<span style="color:var(--success);">✓ Generated ${n} warehouses. Click "Find Closest Pair".</span>`;
+}
+
+function drawDCCanvas(pair=[]) {
+  const canvas = document.getElementById('dc-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  dcWarehouses.forEach(w => {
+    const x = w.x/100*W, y = w.y/100*H;
+    const inPair = pair.includes(w.name);
+    ctx.beginPath();
+    ctx.arc(x, y, inPair ? 13 : 8, 0, Math.PI*2);
+    ctx.fillStyle = inPair ? '#ff6b00' : '#18181d';
+    ctx.fill();
+    ctx.strokeStyle = inPair ? '#ff9500' : '#2a2a33';
+    ctx.lineWidth = inPair ? 2.5 : 1.5;
+    ctx.stroke();
+    ctx.fillStyle = inPair ? '#000' : '#f0ede8';
+    ctx.font = `700 .7rem Syne,sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText(w.name, x, y+4);
+  });
+
+  if (pair.length === 2) {
+    const a = dcWarehouses.find(w=>w.name===pair[0]);
+    const b = dcWarehouses.find(w=>w.name===pair[1]);
+    if (a && b) {
+      ctx.beginPath();
+      ctx.setLineDash([6,4]);
+      ctx.moveTo(a.x/100*W, a.y/100*H);
+      ctx.lineTo(b.x/100*W, b.y/100*H);
+      ctx.strokeStyle = '#ff6b00';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  }
+}
+
+async function runDC() {
+  if (!dcWarehouses.length) { generateDC(); }
+  const el = document.getElementById('dc-result');
+  el.textContent = 'Running D&C…';
+
+  try {
+    const resp = await fetch(`${API}/divide`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({warehouses: dcWarehouses})
+    });
+    const res = await resp.json();
+    drawDCCanvas(res.closest_pair);
+    renderDCResult(res);
+  } catch {
+    // local demo
+    let minD = Infinity, best = ['',''];
+    for (let i = 0; i < dcWarehouses.length; i++)
+      for (let j = i+1; j < dcWarehouses.length; j++) {
+        const d = Math.sqrt((dcWarehouses[i].x-dcWarehouses[j].x)**2+(dcWarehouses[i].y-dcWarehouses[j].y)**2);
+        if (d < minD) { minD = d; best = [dcWarehouses[i].name, dcWarehouses[j].name]; }
+      }
+    drawDCCanvas(best);
+    renderDCResult({closest_pair:best, min_distance:+minD.toFixed(4), complexity:'O(n log n)', recurrence:'T(n) = 2T(n/2) + O(n)', time_ms:0});
+  }
+}
+
+function renderDCResult(res) {
+  const el = document.getElementById('dc-result');
+  el.innerHTML = `<div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem;">
+    <span class="cpx">${res.complexity}</span>
+    <span style="color:var(--muted);font-family:var(--mono);font-size:.8rem;">${res.recurrence}</span>
+    <span style="color:var(--muted);font-size:.8rem;">⏱ ${res.time_ms}ms</span></div>
+    <div class="stat-row">
+      <div class="stat"><div class="val">${res.closest_pair.join(' ↔ ')}</div><div class="lbl">Closest Pair</div></div>
+      <div class="stat"><div class="val">${res.min_distance} units</div><div class="lbl">Min Distance</div></div>
+    </div>
+    <div style="color:var(--muted);font-size:.75rem;margin-top:.75rem;font-family:var(--mono);">
+      💡 These two warehouses should share a delivery hub. Master Theorem confirms O(n log n) — faster than brute-force O(n²).
+    </div>`;
+}
+
+// ── INIT ──
+window.addEventListener('load', () => {
+  drawSampleGraph();
+  // auto-generate initial data
+  generateGreedy();
+  generateDP();
+  generateDC();
+});
+</script>
 </body>
 </html>
