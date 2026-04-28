@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LogiCore — DAA Logistics Optimizer</title>
+<title>DAA Logic Optimizer</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 <style>
   :root {
@@ -278,28 +278,28 @@
 <!-- ══════════════ HOME ══════════════ -->
 <section id="home" class="section active">
   <div class="hero">
-    <div class="hero-eyebrow">⚡ DAA PROJECT — LOGISTICS OPTIMIZATION</div>
+    <div class="hero-eyebrow"> DAA PROJECT — LOGISTICS OPTIMIZATION</div>
     <h1>Smart <em>Delivery</em><br>Algorithmic Engine</h1>
     <p>Implements Merge Sort, Dijkstra, Greedy Knapsack, Dynamic Programming &amp; Divide and Conquer — all live, all real.</p>
   </div>
 
   <div class="vehicle-legend">
     <div class="v-card">
-      <div class="v-icon">🛵</div>
+      <div class="v-icon"></div>
       <div class="v-info">
         <div class="v-name">2-Wheeler</div>
         <div class="v-range">Weight &lt; 25 kg</div>
       </div>
     </div>
     <div class="v-card">
-      <div class="v-icon">🚗</div>
+      <div class="v-icon"></div>
       <div class="v-info">
         <div class="v-name">4-Wheeler Small</div>
         <div class="v-range">25 kg – 45 kg</div>
       </div>
     </div>
     <div class="v-card">
-      <div class="v-icon">🚛</div>
+      <div class="v-icon"></div>
       <div class="v-info">
         <div class="v-name">4-Wheeler Big</div>
         <div class="v-range">Weight &gt; 45 kg</div>
@@ -316,25 +316,25 @@
         <div style="margin-top:1rem;" class="cpx">O(n log n)</div>
       </div>
       <div class="card" style="border-color:rgba(255,107,0,.3);cursor:pointer;" onclick="showSection('route')">
-        <div style="font-size:2rem;margin-bottom:.75rem;">🗺️</div>
+        <div style="font-size:2rem;margin-bottom:.75rem;"></div>
         <div style="font-weight:700;margin-bottom:.4rem;">Module 2 — Graph Routes</div>
         <div style="color:var(--muted);font-size:.85rem;">Dijkstra & Bellman-Ford for optimal city-to-city delivery paths.</div>
         <div style="margin-top:1rem;" class="cpx">O((V+E) log V)</div>
       </div>
       <div class="card" style="border-color:rgba(255,107,0,.3);cursor:pointer;" onclick="showSection('greedy')">
-        <div style="font-size:2rem;margin-bottom:.75rem;">💡</div>
+        <div style="font-size:2rem;margin-bottom:.75rem;"></div>
         <div style="font-weight:700;margin-bottom:.4rem;">Module 3 — Greedy</div>
         <div style="color:var(--muted);font-size:.85rem;">Fractional Knapsack for real-time vehicle loading maximization.</div>
         <div style="margin-top:1rem;" class="cpx">O(n log n)</div>
       </div>
       <div class="card" style="border-color:rgba(255,107,0,.3);cursor:pointer;" onclick="showSection('dp')">
-        <div style="font-size:2rem;margin-bottom:.75rem;">📊</div>
+        <div style="font-size:2rem;margin-bottom:.75rem;"></div>
         <div style="font-weight:700;margin-bottom:.4rem;">Module 4 — DP Knapsack</div>
         <div style="color:var(--muted);font-size:.85rem;">0/1 Knapsack for globally optimal package selection per vehicle.</div>
         <div style="margin-top:1rem;" class="cpx">O(n × W)</div>
       </div>
       <div class="card" style="border-color:rgba(255,107,0,.3);cursor:pointer;" onclick="showSection('dc')">
-        <div style="font-size:2rem;margin-bottom:.75rem;">🔀</div>
+        <div style="font-size:2rem;margin-bottom:.75rem;"></div>
         <div style="font-weight:700;margin-bottom:.4rem;">Module 5 — Divide &amp; Conquer</div>
         <div style="color:var(--muted);font-size:.85rem;">Closest pair of warehouses using recursive divide-and-conquer.</div>
         <div style="margin-top:1rem;" class="cpx">T(n) = 2T(n/2) + O(n)</div>
@@ -369,7 +369,7 @@
       </div>
     </div>
     <div class="btn-group">
-      <button class="btn btn-secondary" onclick="generateAndSort()">🎲 Generate & Sort</button>
+      <button class="btn btn-secondary" onclick="generateAndSort()">Generate & Sort</button>
     </div>
   </div>
 
@@ -420,8 +420,8 @@
     </div>
     <input type="hidden" id="route-algo" value="dijkstra" />
     <div class="btn-group">
-      <button class="btn btn-primary" onclick="findRoute()">🚀 Find Optimal Route</button>
-      <button class="btn btn-secondary" onclick="drawSampleGraph()">🔄 Sample Graph</button>
+      <button class="btn btn-primary" onclick="findRoute()"> Find Optimal Route</button>
+      <button class="btn btn-secondary" onclick="drawSampleGraph()"> Sample Graph</button>
     </div>
   </div>
   <div class="card">
@@ -436,7 +436,7 @@
 <section id="greedy" class="section">
 <main>
   <div class="sec-header">
-    <h2>💡 Vehicle Loading — Fractional Knapsack</h2>
+    <h2>Vehicle Loading — Fractional Knapsack</h2>
     <p>Greedily maximize delivery value within vehicle weight capacity</p>
   </div>
   <div class="card">
@@ -452,8 +452,8 @@
       </div>
     </div>
     <div class="btn-group">
-      <button class="btn btn-primary" onclick="runGreedy()">⚡ Run Fractional Knapsack</button>
-      <button class="btn btn-secondary" onclick="generateGreedy()">🎲 Generate Packages</button>
+      <button class="btn btn-primary" onclick="runGreedy()"> Run Fractional Knapsack</button>
+      <button class="btn btn-secondary" onclick="generateGreedy()"> Generate Packages</button>
     </div>
   </div>
   <div class="card">
@@ -467,7 +467,7 @@
 <section id="dp" class="section">
 <main>
   <div class="sec-header">
-    <h2>📊 0/1 Knapsack — Optimal Selection</h2>
+    <h2> 0/1 Knapsack — Optimal Selection</h2>
     <p>DP ensures globally optimal selection — greedy may fail here</p>
   </div>
   <div class="card">
@@ -483,8 +483,8 @@
       </div>
     </div>
     <div class="btn-group">
-      <button class="btn btn-primary" onclick="runDP()">🧠 Run DP Knapsack</button>
-      <button class="btn btn-secondary" onclick="generateDP()">🎲 Generate Packages</button>
+      <button class="btn btn-primary" onclick="runDP()"> Run DP Knapsack</button>
+      <button class="btn btn-secondary" onclick="generateDP()">Generate Packages</button>
     </div>
   </div>
   <div class="card">
@@ -498,7 +498,7 @@
 <section id="dc" class="section">
 <main>
   <div class="sec-header">
-    <h2>🔀 Closest Warehouse Pair</h2>
+    <h2>Closest Warehouse Pair</h2>
     <p>Divide &amp; Conquer closest-pair algorithm — T(n) = 2T(n/2) + O(n)</p>
   </div>
   <div class="card">
@@ -510,8 +510,8 @@
       </div>
     </div>
     <div class="btn-group">
-      <button class="btn btn-primary" onclick="runDC()">🔀 Find Closest Pair</button>
-      <button class="btn btn-secondary" onclick="generateDC()">🎲 Generate Warehouses</button>
+      <button class="btn btn-primary" onclick="runDC()"> Find Closest Pair</button>
+      <button class="btn btn-secondary" onclick="generateDC()"> Generate Warehouses</button>
     </div>
   </div>
   <div class="card">
@@ -522,7 +522,7 @@
 </main>
 </section>
 
-<footer>LogiCore — DAA Assignment &nbsp;|&nbsp; Algorithms: Merge Sort · Dijkstra · Greedy Knapsack · DP · Divide &amp; Conquer</footer>
+<footer>DAA Assignment &nbsp;|&nbsp; Algorithms: Merge Sort · Dijkstra · Greedy Knapsack · DP · Divide &amp; Conquer</footer>
 
 <script>
 const API = 'http://localhost:5000/api';
