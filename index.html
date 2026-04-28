@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logistics Optimizer</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f9;
+      text-align: center;
+    }
+    h1 {
+      background: #2c3e50;
+      color: white;
+      padding: 15px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+    }
+    #result {
+      margin-top: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      width: 60%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>🚚 Logistics Optimization System</h1>
+
+<input type="number" id="weight" placeholder="Weight">
+<input type="number" id="priority" placeholder="Priority">
+<input type="number" id="deadline" placeholder="Deadline">
+<input type="number" id="distance" placeholder="Distance">
+
+<br>
+
+<button onclick="sendData()">Optimize Delivery</button>
+
+<div id="result"></div>
+
+<script>
+async function sendData() {
+  const data = {
+    weight: document.getElementById("weight").value,
+    priority: document.getElementById("priority").value,
+    deadline: document.getElementById("deadline").value,
+    distance: document.getElementById("distance").value
+  };
+
+  const response = await fetch("http://localhost:3000/optimize", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  const result = await response.json();
+
+  document.getElementById("result").innerHTML =
+    `<h3>Optimized Output:</h3>
+     Priority Score: ${result.score}`;
+}
+</script>
+
+</body>
+</html>
