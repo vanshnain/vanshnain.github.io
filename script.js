@@ -71,6 +71,31 @@ setInterval(updateCountdown, 1000);
 const form = document.getElementById("suggestionForm");
 const formMessage = document.getElementById("formMessage");
 
-form.addEventListener("submit", function () {
+form.addEventListener("submit", async function (event) {
+  event.preventDefault();
+
   formMessage.textContent = "Sending your suggestion...";
+
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json"
+      }
+    });
+
+    if (response.ok) {
+      formMessage.textContent = "Thank you! Your suggestion has been submitted.";
+      form.reset();
+    } else {
+      formMessage.textContent =
+        "Something went wrong. Please try again.";
+    }
+  } catch (error) {
+    formMessage.textContent =
+      "Something went wrong. Please try again.";
+  }
 });
