@@ -1,490 +1,1429 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Vansh Nain | Student Election 2026</title>
+  <title>Vansh Nain — Portfolio</title>
+  <meta
+    name="description"
+    content="Vansh Nain — Computer Science student exploring Cybersecurity, Data Analysis and Technology Consulting."
+  />
 
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --bg: #050505;
+      --bg2: #090909;
+      --card: rgba(255,255,255,0.045);
+      --border: rgba(255,255,255,0.10);
+      --text: #f5f5f5;
+      --muted: #999;
+      --accent: #8b5cf6;
+      --accent2: #06b6d4;
+      --glow: rgba(139,92,246,0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: white;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ================= BACKGROUND ================= */
+
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(139,92,246,.10), transparent 28%),
+        radial-gradient(circle at 85% 70%, rgba(6,182,212,.08), transparent 28%),
+        #050505;
+    }
+
+    .orb {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .15;
+      animation: float 12s ease-in-out infinite;
+    }
+
+    .orb.one {
+      background: #8b5cf6;
+      top: -160px;
+      left: -120px;
+    }
+
+    .orb.two {
+      background: #06b6d4;
+      bottom: -180px;
+      right: -120px;
+      animation-delay: -5s;
+    }
+
+    @keyframes float {
+      0%,100% {
+        transform: translate(0,0) scale(1);
+      }
+      50% {
+        transform: translate(50px,30px) scale(1.1);
+      }
+    }
+
+    .grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 70px 70px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    /* ================= CURSOR GLOW ================= */
+
+    .cursor-glow {
+      position: fixed;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+      background: radial-gradient(
+        circle,
+        rgba(139,92,246,.09),
+        transparent 65%
+      );
+      transform: translate(-50%, -50%);
+    }
+
+    /* ================= NAVBAR ================= */
+
+    nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1100px, calc(100% - 30px));
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10,10,10,.65);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      z-index: 100;
+      box-shadow: 0 10px 40px rgba(0,0,0,.25);
+    }
+
+    .logo {
+      font-family: "Space Grotesk";
+      font-weight: 700;
+      font-size: 19px;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #aaa;
+      font-size: 13px;
+      transition: .3s;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-button {
+      padding: 9px 15px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      font-size: 13px;
+      transition: .3s;
+    }
+
+    .nav-button:hover {
+      background: white;
+      color: black;
+      transform: translateY(-2px);
+    }
+
+    /* ================= GENERAL ================= */
+
+    section {
+      width: min(1100px, calc(100% - 35px));
+      margin: auto;
+      padding: 110px 0;
+    }
+
+    .section-label {
+      color: var(--accent);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .section-title {
+      font-family: "Space Grotesk";
+      font-size: clamp(35px, 5vw, 58px);
+      letter-spacing: -3px;
+      margin-bottom: 50px;
+    }
+
+    /* ================= HERO ================= */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 150px;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 13px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.035);
+      border-radius: 100px;
+      color: #bbb;
+      font-size: 12px;
+      margin-bottom: 28px;
+      animation: reveal .8s ease forwards;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 12px #22c55e;
+    }
+
+    .hero h1 {
+      font-family: "Space Grotesk";
+      font-size: clamp(60px, 10vw, 115px);
+      line-height: .9;
+      letter-spacing: -7px;
+      margin-bottom: 30px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(
+        110deg,
+        #fff 10%,
+        #b9a4ff 45%,
+        #67e8f9 90%
+      );
+      -webkit-background-clip: text;
+      color: transparent;
+      background-size: 200% auto;
+      animation: gradientMove 5s linear infinite;
+    }
+
+    @keyframes gradientMove {
+      to {
+        background-position: 200% center;
+      }
+    }
+
+    .hero-subtitle {
+      color: #aaa;
+      font-size: 18px;
+      line-height: 1.7;
+      max-width: 650px;
+      margin-bottom: 35px;
+    }
+
+    .typing {
+      color: white;
+      font-weight: 600;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 13px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 14px;
+      transition: .3s;
+    }
+
+    .btn.primary {
+      background: white;
+      color: black;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0,0,0,.3);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #666;
+      font-size: 11px;
+      letter-spacing: 3px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%,100% { transform: translate(-50%,0); }
+      50% { transform: translate(-50%,10px); }
+    }
+
+    /* ================= ABOUT ================= */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .photo-card {
+      height: 430px;
+      border-radius: 25px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(145deg, rgba(139,92,246,.15), rgba(255,255,255,.02));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .photo-placeholder {
+      text-align: center;
+      color: #555;
+      padding: 30px;
+    }
+
+    .photo-placeholder strong {
+      display: block;
+      font-family: "Space Grotesk";
+      font-size: 60px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .about-text {
+      color: #aaa;
+      line-height: 1.9;
+      font-size: 16px;
+    }
+
+    .about-text p {
+      margin-bottom: 20px;
+    }
+
+    /* ================= SKILLS ================= */
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 15px;
+    }
+
+    .skill {
+      padding: 25px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--card);
+      transition: .35s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at var(--x,50%) var(--y,50%),
+        rgba(139,92,246,.14),
+        transparent 55%
+      );
+      opacity: 0;
+      transition: .4s;
+    }
+
+    .skill:hover::before {
+      opacity: 1;
+    }
+
+    .skill:hover {
+      transform: translateY(-7px);
+      border-color: rgba(139,92,246,.4);
+    }
+
+    .skill-icon {
+      font-size: 27px;
+      margin-bottom: 20px;
+    }
+
+    .skill h3 {
+      margin-bottom: 8px;
+      font-family: "Space Grotesk";
+    }
+
+    .skill p {
+      color: #777;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ================= EXPERIENCE ================= */
+
+    .timeline {
+      position: relative;
+      margin-left: 15px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(
+        to bottom,
+        var(--accent),
+        rgba(255,255,255,.05)
+      );
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 45px;
+      margin-bottom: 55px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 13px;
+      height: 13px;
+      background: #080808;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 18px var(--glow);
+    }
+
+    .timeline-item small {
+      color: var(--accent);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .timeline-item h3 {
+      font-family: "Space Grotesk";
+      font-size: 25px;
+      margin: 10px 0 5px;
+    }
+
+    .timeline-item .company {
+      color: #888;
+      margin-bottom: 12px;
+    }
+
+    .timeline-item p {
+      color: #777;
+      max-width: 650px;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    /* ================= EDUCATION ================= */
+
+    .education-card {
+      border: 1px solid var(--border);
+      background: linear-gradient(
+        130deg,
+        rgba(139,92,246,.10),
+        rgba(255,255,255,.025)
+      );
+      border-radius: 25px;
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .education-card h3 {
+      font-family: "Space Grotesk";
+      font-size: 27px;
+      margin-bottom: 10px;
+    }
+
+    .education-card p {
+      color: #888;
+    }
+
+    .degree {
+      color: var(--accent);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    /* ================= PROJECTS ================= */
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 18px;
+    }
+
+    .project {
+      min-height: 280px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 30px;
+      background: var(--card);
+      transition: .4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project:hover {
+      transform: translateY(-8px);
+      border-color: rgba(139,92,246,.4);
+      box-shadow: 0 25px 60px rgba(0,0,0,.25);
+    }
+
+    .project-number {
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 50px;
+    }
+
+    .project h3 {
+      font-family: "Space Grotesk";
+      font-size: 25px;
+      margin-bottom: 12px;
+    }
+
+    .project p {
+      color: #777;
+      line-height: 1.7;
+      font-size: 14px;
+      max-width: 450px;
+    }
+
+    .project-link {
+      position: absolute;
+      bottom: 25px;
+      right: 25px;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      transition: .3s;
+    }
+
+    .project:hover .project-link {
+      background: white;
+      color: black;
+      transform: rotate(-45deg);
+    }
+
+    /* ================= CONTACT ================= */
+
+    .contact {
+      text-align: center;
+      padding-bottom: 130px;
+    }
+
+    .contact h2 {
+      font-family: "Space Grotesk";
+      font-size: clamp(45px,7vw,80px);
+      letter-spacing: -4px;
+      margin-bottom: 20px;
+    }
+
+    .contact p {
+      color: #777;
+      margin-bottom: 35px;
+    }
+
+    .email {
+      display: inline-block;
+      font-size: clamp(18px,3vw,30px);
+      border-bottom: 1px solid #444;
+      padding-bottom: 8px;
+      transition: .3s;
+    }
+
+    .email:hover {
+      color: #b9a4ff;
+      border-color: var(--accent);
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      width: min(1100px, calc(100% - 35px));
+      margin: auto;
+      padding: 25px 0 35px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      color: #555;
+      font-size: 12px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 20px;
+    }
+
+    .socials a {
+      transition: .3s;
+    }
+
+    .socials a:hover {
+      color: white;
+    }
+
+    /* ================= REVEAL ================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 800px) {
+
+      nav {
+        padding: 12px 14px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      section {
+        padding: 80px 0;
+      }
+
+      .hero {
+        padding-top: 130px;
+      }
+
+      .hero h1 {
+        font-size: 65px;
+        letter-spacing: -5px;
+      }
+
+      .hero-subtitle {
+        font-size: 15px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .photo-card {
+        height: 330px;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      .education-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 55px;
+      }
+
+      .section-title {
+        letter-spacing: -2px;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- ANNOUNCEMENT -->
-  <div class="announcement">
-    <span>STUDENT ELECTION 2026</span>
-    <span>YOUR VOICE • YOUR CHOICE</span>
+  <!-- Background -->
+  <div class="background">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="grid"></div>
   </div>
 
-  <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="nav-container">
+  <div class="cursor-glow"></div>
 
-      <a href="#home" class="logo">VN<span>.</span></a>
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#" class="logo">VN<span>.</span></a>
 
-      <button class="menu-btn" id="menuBtn">☰</button>
-
-      <nav id="navMenu">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#vision">Vision</a>
-        <a href="#manifesto">Manifesto</a>
-        <a href="#suggestion">Suggestions</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <a href="#suggestion" class="nav-btn">Share Your Voice</a>
-
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
     </div>
-  </header>
+
+    <a href="#contact" class="nav-button">Let's Talk ↗</a>
+  </nav>
 
 
   <!-- HERO -->
-  <section class="hero" id="home">
+  <main>
 
-    <div class="hero-content">
+    <section class="hero">
 
-      <div class="eyebrow">
-        <span></span>
-        RAMANUJAN COLLEGE • UNIVERSITY OF DELHI
-      </div>
+      <div class="hero-content">
 
-      <h1>
-        YOUR<br>
-        <span>VOICE.</span>
-      </h1>
+        <div class="availability">
+          <span class="status-dot"></span>
+          Open to opportunities
+        </div>
 
-      <h2>YOUR CHOICE.</h2>
+        <h1>
+          Vansh<br>
+          <span class="gradient-text">Nain.</span>
+        </h1>
 
-      <p>
-        A student-focused campaign built around
-        listening, representation, transparency and action.
-      </p>
-
-      <div class="hero-buttons">
-        <a href="#vision" class="btn primary">Explore My Vision →</a>
-        <a href="#suggestion" class="btn outline">Give a Suggestion</a>
-      </div>
-
-      <div class="hero-name">
-        <strong>VANSH NAIN</strong>
-        <span>Student Representative • 2026</span>
-      </div>
-
-    </div>
-
-
-    <div class="hero-visual">
-
-      <div class="circle circle-one"></div>
-      <div class="circle circle-two"></div>
-
-      <div class="photo-wrap">
-      <img src="photo.jpeg" alt="Profile Photo">
-      </div>
-
-      <div class="year-card">
-        <strong>2026</strong>
-        <span>STUDENT<br>ELECTION</span>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- MARQUEE -->
-  <div class="marquee">
-    <div>
-      LISTEN • REPRESENT • ACT • DELIVER • LISTEN • REPRESENT • ACT • DELIVER •
-    </div>
-  </div>
-
-
-  <!-- ABOUT -->
-  <section class="section" id="about">
-
-    <div class="section-number">01 / ABOUT</div>
-
-    <div class="about-grid">
-
-      <h2>
-        STUDENTS<br>
-        <span>FIRST.</span>
-      </h2>
-
-      <div class="about-text">
-
-        <p class="large">
-          Representation should not end after an election.
-          It should begin there.
+        <p class="hero-subtitle">
+          B.Sc. Computer Science student exploring
+          <span class="typing"></span>
+          and building technology-driven solutions.
         </p>
 
-        <p>
-          I believe every student deserves to be heard.
-          Whether it's an academic concern, campus issue,
-          opportunity or simple suggestion — your voice matters.
-        </p>
+        <div class="buttons">
 
-        <p>
-          My goal is to create an approachable and transparent
-          student representation that focuses on practical
-          solutions and meaningful communication.
-        </p>
+          <a
+            href="https://github.com/vanshnain"
+            target="_blank"
+            class="btn primary"
+          >
+            GitHub ↗
+          </a>
 
-      </div>
+          <a
+            href="https://www.linkedin.com/in/vanshnain/"
+            target="_blank"
+            class="btn"
+          >
+            LinkedIn ↗
+          </a>
 
-    </div>
+          <a href="#contact" class="btn">
+            Contact Me ↓
+          </a>
 
-  </section>
-
-
-  <!-- VISION -->
-  <section class="dark-section" id="vision">
-
-    <div class="section dark-inner">
-
-      <div class="section-number">02 / VISION</div>
-
-      <div class="vision-heading">
-        <h2>
-          A BETTER CAMPUS.<br>
-          <span>A STRONGER VOICE.</span>
-        </h2>
-
-        <p>
-          Six areas where student participation and
-          representation can make a difference.
-        </p>
-      </div>
-
-
-      <div class="vision-grid">
-
-        <div class="vision-card">
-          <span>01</span>
-          <h3>Student Support</h3>
-          <p>
-            Easier communication for students who need
-            guidance with campus-related concerns.
-          </p>
-        </div>
-
-        <div class="vision-card">
-          <span>02</span>
-          <h3>Academic Assistance</h3>
-          <p>
-            Better communication around academics,
-            opportunities and important information.
-          </p>
-        </div>
-
-        <div class="vision-card">
-          <span>03</span>
-          <h3>Digital Solutions</h3>
-          <p>
-            Encouraging simple digital solutions that
-            make student services more accessible.
-          </p>
-        </div>
-
-        <div class="vision-card">
-          <span>04</span>
-          <h3>Culture & Events</h3>
-          <p>
-            Supporting student-led cultural, technical
-            and creative activities.
-          </p>
-        </div>
-
-        <div class="vision-card">
-          <span>05</span>
-          <h3>Sports & Societies</h3>
-          <p>
-            Encouraging wider participation in sports,
-            societies and campus activities.
-          </p>
-        </div>
-
-        <div class="vision-card">
-          <span>06</span>
-          <h3>Transparency</h3>
-          <p>
-            Keeping students informed about concerns,
-            initiatives and progress.
-          </p>
         </div>
 
       </div>
 
-    </div>
-
-  </section>
-
-
-  <!-- MANIFESTO -->
-  <section class="section" id="manifesto">
-
-    <div class="section-number">03 / MANIFESTO</div>
-
-    <div class="manifesto-top">
-
-      <h2>
-        IDEAS<br>
-        INTO <span>ACTION.</span>
-      </h2>
-
-      <p>
-        A simple promise: listen to students,
-        work on practical solutions and communicate
-        the progress.
-      </p>
-
-    </div>
-
-
-    <div class="manifesto-list">
-
-      <div class="manifesto-item">
-        <span>01</span>
-        <div>
-          <h3>Accessible Representation</h3>
-          <p>
-            Create an easy channel through which students
-            can share their concerns and ideas.
-          </p>
-        </div>
+      <div class="scroll-indicator">
+        SCROLL ↓
       </div>
 
-      <div class="manifesto-item">
-        <span>02</span>
-        <div>
-          <h3>Better Communication</h3>
-          <p>
-            Important information and opportunities should
-            reach students clearly and on time.
-          </p>
-        </div>
-      </div>
-
-      <div class="manifesto-item">
-        <span>03</span>
-        <div>
-          <h3>Student Participation</h3>
-          <p>
-            Encourage students to actively participate
-            in campus activities and initiatives.
-          </p>
-        </div>
-      </div>
-
-      <div class="manifesto-item">
-        <span>04</span>
-        <div>
-          <h3>Listen. Act. Report.</h3>
-          <p>
-            Listen to concerns, work towards solutions
-            and communicate progress transparently.
-          </p>
-        </div>
-      </div>
-
-    </div>
-
-  </section>
+    </section>
 
 
-  <!-- COUNTDOWN -->
-  <section class="countdown-section">
+    <!-- ABOUT -->
+    <section id="about" class="reveal">
 
-    <div>
-      <span class="mini-label">THE MOMENT IS COMING</span>
+      <div class="section-label">01 — About</div>
 
-      <h2>
-        MAKE YOUR<br>
-        <span>VOICE COUNT.</span>
-      </h2>
-    </div>
+      <div class="about-grid">
 
-    <div class="countdown">
+        <div class="photo-card">
 
-      <div>
-        <strong id="days">00</strong>
-        <small>DAYS</small>
-      </div>
+          <!--
+            Replace the URL below with your GitHub image URL.
 
-      <div>
-        <strong id="hours">00</strong>
-        <small>HOURS</small>
-      </div>
+            Example:
+            https://raw.githubusercontent.com/vanshnain/portfolio/main/profile.jpg
+          -->
 
-      <div>
-        <strong id="minutes">00</strong>
-        <small>MINUTES</small>
-      </div>
-
-      <div>
-        <strong id="seconds">00</strong>
-        <small>SECONDS</small>
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- SUGGESTION -->
-  <section class="suggestion-section" id="suggestion">
-
-    <div class="section suggestion-inner">
-
-      <div class="section-number">04 / YOUR VOICE</div>
-
-      <div class="suggestion-grid">
-
-        <div>
-          <h2>
-            WHAT SHOULD<br>
-            WE <span>CHANGE?</span>
-          </h2>
-
-          <p>
-            Your suggestion could become part of the agenda.
-            Tell us what matters to you.
-          </p>
-        </div>
-
-
-        <!-- Replace YOUR_FORM_ID with your Formspree ID -->
-        <form
-          id="suggestionForm"
-          action="https://formspree.io/f/maeyjakz"
-          method="POST"
-        >
-
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            required
+          <img
+            src="YOUR_GITHUB_IMAGE_URL"
+            alt="Vansh Nain"
+            id="profileImage"
           >
 
-          <input
-            type="text"
-            name="course"
-            placeholder="Course / Year"
-          >
+          <div class="photo-placeholder" id="placeholder">
+            <strong>VN</strong>
+            <span>YOUR PHOTO</span>
+          </div>
 
-          <textarea
-            name="suggestion"
-            rows="6"
-            placeholder="Write your suggestion..."
-            required
-          ></textarea>
+        </div>
 
-          <input
-            type="text"
-            name="contact"
-            placeholder="Contact (Optional)"
-          >
+        <div class="about-text">
 
-          <button type="submit" class="btn primary">
-            Submit Suggestion →
-          </button>
+          <p>
+            I'm Vansh Nain, a Computer Science student at the
+            University of Delhi with an interest in technology,
+            cybersecurity, data and problem solving.
+          </p>
 
-          <p id="formMessage"></p>
+          <p>
+            My interests span across cybersecurity, data analysis
+            and technology consulting. I enjoy understanding complex
+            problems, working with data and exploring how technology
+            can be used to build practical solutions.
+          </p>
 
-        </form>
+          <p>
+            Currently pursuing my B.Sc. in Computer Science,
+            I'm continuously developing my technical skills through
+            projects, learning and industry exposure.
+          </p>
+
+        </div>
 
       </div>
 
-    </div>
-
-  </section>
+    </section>
 
 
-  <!-- JOIN -->
-  <section class="join-section">
+    <!-- SKILLS -->
+    <section id="skills" class="reveal">
 
-    <div class="join-content">
+      <div class="section-label">02 — Expertise</div>
 
-      <span class="mini-label">BE PART OF THE MOVEMENT</span>
+      <h2 class="section-title">
+        Things I work with.
+      </h2>
+
+      <div class="skills-grid">
+
+        <div class="skill">
+          <div class="skill-icon">⌘</div>
+          <h3>Programming</h3>
+          <p>
+            Python, C++, JavaScript and problem solving.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-icon">◈</div>
+          <h3>Cybersecurity</h3>
+          <p>
+            Security fundamentals, threat awareness and
+            cybersecurity concepts.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-icon">▦</div>
+          <h3>Data Analysis</h3>
+          <p>
+            Working with data, finding patterns and
+            turning information into insights.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-icon">⌁</div>
+          <h3>SQL</h3>
+          <p>
+            Querying, managing and analysing structured data.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-icon">◉</div>
+          <h3>Technology</h3>
+          <p>
+            Exploring modern technologies and
+            technology-driven solutions.
+          </p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-icon">↗</div>
+          <h3>Consulting</h3>
+          <p>
+            Analytical thinking, business problems and
+            technology consulting.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="reveal">
+
+      <div class="section-label">03 — Experience</div>
+
+      <h2 class="section-title">
+        Industry exposure.
+      </h2>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+
+          <small>Experience</small>
+
+          <h3>Cybersecurity</h3>
+
+          <div class="company">
+            Deloitte
+          </div>
+
+          <p>
+            Exposure to cybersecurity concepts, security-focused
+            problem solving and technology practices.
+          </p>
+
+        </div>
+
+
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+
+          <small>Experience</small>
+
+          <h3>Data Analysis</h3>
+
+          <div class="company">
+            Deloitte
+          </div>
+
+          <p>
+            Experience focused on analysing information,
+            identifying patterns and communicating data-driven insights.
+          </p>
+
+        </div>
+
+
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+
+          <small>Experience</small>
+
+          <h3>Technology Consulting</h3>
+
+          <div class="company">
+            Accenture
+          </div>
+
+          <p>
+            Exposure to technology consulting and
+            structured approaches to solving business problems.
+          </p>
+
+        </div>
+
+
+        <div class="timeline-item">
+          <span class="timeline-dot"></span>
+
+          <small>Experience</small>
+
+          <h3>Data Analysis</h3>
+
+          <div class="company">
+            Tata
+          </div>
+
+          <p>
+            Experience with data-oriented problem solving,
+            analysis and extracting meaningful insights.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- EDUCATION -->
+    <section class="reveal">
+
+      <div class="section-label">04 — Education</div>
+
+      <h2 class="section-title">
+        Academic journey.
+      </h2>
+
+      <div class="education-card">
+
+        <div>
+          <div class="degree">
+            BACHELOR'S DEGREE
+          </div>
+
+          <h3>
+            B.Sc. Computer Science (Hons.)
+          </h3>
+
+          <p>
+            University of Delhi
+          </p>
+        </div>
+
+        <div style="font-size:40px;">
+          🎓
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROJECTS -->
+    <section id="projects" class="reveal">
+
+      <div class="section-label">05 — Projects</div>
+
+      <h2 class="section-title">
+        Selected work.
+      </h2>
+
+      <div class="projects">
+
+        <div class="project">
+
+          <div class="project-number">
+            PROJECT / 01
+          </div>
+
+          <h3>Cybersecurity Project</h3>
+
+          <p>
+            A cybersecurity-focused project exploring
+            security concepts, threats and practical
+            technology solutions.
+          </p>
+
+          <a
+            href="https://github.com/vanshnain"
+            target="_blank"
+            class="project-link"
+          >
+            ↗
+          </a>
+
+        </div>
+
+
+        <div class="project">
+
+          <div class="project-number">
+            PROJECT / 02
+          </div>
+
+          <h3>Data Analysis</h3>
+
+          <p>
+            A data-oriented project focused on analysing
+            information and extracting meaningful insights.
+          </p>
+
+          <a
+            href="https://github.com/vanshnain"
+            target="_blank"
+            class="project-link"
+          >
+            ↗
+          </a>
+
+        </div>
+
+
+        <div class="project">
+
+          <div class="project-number">
+            PROJECT / 03
+          </div>
+
+          <h3>Technology Project</h3>
+
+          <p>
+            An exploration of technology and problem solving,
+            combining technical thinking with practical applications.
+          </p>
+
+          <a
+            href="https://github.com/vanshnain"
+            target="_blank"
+            class="project-link"
+          >
+            ↗
+          </a>
+
+        </div>
+
+
+        <div class="project">
+
+          <div class="project-number">
+            PROJECT / 04
+          </div>
+
+          <h3>More Coming Soon</h3>
+
+          <p>
+            Currently building and experimenting with
+            new projects. Stay tuned.
+          </p>
+
+          <a
+            href="https://github.com/vanshnain"
+            target="_blank"
+            class="project-link"
+          >
+            ↗
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact reveal">
+
+      <div class="section-label">
+        06 — Contact
+      </div>
 
       <h2>
-        YOUR IDEA.<br>
-        YOUR CAMPUS.
+        Let's build<br>
+        <span class="gradient-text">something.</span>
       </h2>
 
       <p>
-        A campaign becomes meaningful when students
-        become part of it.
+        Have an opportunity, idea or just want to connect?
       </p>
 
-      <a href="#suggestion" class="btn light">
-        Share Your Idea →
+      <a
+        href="mailto:contact@vanshnain.tech"
+        class="email"
+      >
+        contact@vanshnain.tech
       </a>
 
-    </div>
+    </section>
 
-  </section>
-
-
-  <!-- CONTACT -->
-  <section class="section contact" id="contact">
-
-    <div class="section-number">05 / CONNECT</div>
-
-    <h2>
-      LET'S STAY<br>
-      <span>CONNECTED.</span>
-    </h2>
-
-    <p>
-      Questions, ideas or suggestions?
-      Reach out and let's talk.
-    </p>
-
-    <div class="socials">
-
-      <a href="https://instagram.com/vansh.nain_rnc" target="_blank">
-        Instagram ↗
-      </a>
-
-      <a href="mailto:YOUR_EMAIL@gmail.com">
-        Email ↗
-      </a>
-
-    </div>
-
-  </section>
+  </main>
 
 
   <!-- FOOTER -->
   <footer>
 
     <div>
-      <div class="footer-logo">VN<span>.</span></div>
-      <p>Student Election 2026</p>
+      © 2026 Vansh Nain. All rights reserved.
     </div>
 
-    <div>
-      <strong>VANSH NAIN</strong>
-      <p>Ramanujan College • University of Delhi</p>
-    </div>
+    <div class="socials">
 
-    <div class="footer-right">
-      <p>© 2026 Vansh Nain</p>
+      <a
+        href="https://github.com/vanshnain"
+        target="_blank"
+      >
+        GitHub
+      </a>
+
+      <a
+        href="https://www.linkedin.com/in/vanshnain/"
+        target="_blank"
+      >
+        LinkedIn
+      </a>
+
+      <a href="mailto:contact@vanshnain.tech">
+        Email
+      </a>
+
     </div>
 
   </footer>
 
 
-  <script src="script.js"></script>
+  <script>
+
+    /* ================= CURSOR GLOW ================= */
+
+    const glow = document.querySelector(".cursor-glow");
+
+    document.addEventListener("mousemove", (e) => {
+
+      glow.style.left = e.clientX + "px";
+      glow.style.top = e.clientY + "px";
+
+    });
+
+
+    /* ================= TYPING EFFECT ================= */
+
+    const words = [
+      "Cybersecurity",
+      "Data Analysis",
+      "Technology Consulting",
+      "Software Development"
+    ];
+
+    const typingElement = document.querySelector(".typing");
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    function typeEffect() {
+
+      const currentWord = words[wordIndex];
+
+      if (!deleting) {
+
+        typingElement.textContent =
+          currentWord.substring(0, charIndex + 1);
+
+        charIndex++;
+
+        if (charIndex === currentWord.length) {
+
+          deleting = true;
+
+          setTimeout(typeEffect, 1300);
+
+          return;
+        }
+
+      } else {
+
+        typingElement.textContent =
+          currentWord.substring(0, charIndex - 1);
+
+        charIndex--;
+
+        if (charIndex === 0) {
+
+          deleting = false;
+
+          wordIndex =
+            (wordIndex + 1) % words.length;
+
+        }
+
+      }
+
+      setTimeout(
+        typeEffect,
+        deleting ? 45 : 85
+      );
+    }
+
+    typeEffect();
+
+
+    /* ================= SCROLL REVEAL ================= */
+
+    const revealElements =
+      document.querySelectorAll(".reveal");
+
+    const observer =
+      new IntersectionObserver(
+        (entries) => {
+
+          entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add("active");
+
+            }
+
+          });
+
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+    revealElements.forEach(
+      element => observer.observe(element)
+    );
+
+
+    /* ================= SKILL MOUSE EFFECT ================= */
+
+    document
+      .querySelectorAll(".skill")
+      .forEach(card => {
+
+        card.addEventListener(
+          "mousemove",
+          (e) => {
+
+            const rect =
+              card.getBoundingClientRect();
+
+            const x =
+              ((e.clientX - rect.left) /
+                rect.width) * 100;
+
+            const y =
+              ((e.clientY - rect.top) /
+                rect.height) * 100;
+
+            card.style.setProperty("--x", x + "%");
+            card.style.setProperty("--y", y + "%");
+
+          }
+        );
+
+      });
+
+
+    /* ================= PROFILE IMAGE ================= */
+
+    const profileImage =
+      document.getElementById("profileImage");
+
+    const placeholder =
+      document.getElementById("placeholder");
+
+    if (
+      profileImage.src &&
+      !profileImage.src.includes("YOUR_GITHUB")
+    ) {
+
+      profileImage.style.display = "block";
+      placeholder.style.display = "none";
+
+    }
+
+  </script>
 
 </body>
 </html>
